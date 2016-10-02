@@ -8,7 +8,8 @@ $configurator = new Nette\Configurator;
 $configurator->enableDebugger(__DIR__ . '/../log');
 
 $configurator->setTimeZone('Europe/Prague');
-$configurator->setTempDirectory(__DIR__ . '/../temp');
+//$configurator->setTempDirectory(__DIR__ . '/../temp');
+$configurator->setTempDirectory('/home/vagrant/temp');
 
 $configurator->createRobotLoader()
 	->addDirectory(__DIR__)
