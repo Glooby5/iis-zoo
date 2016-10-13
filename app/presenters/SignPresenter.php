@@ -21,9 +21,13 @@ class SignPresenter extends BasePresenter
 	 */
 	protected function createComponentSignInForm()
 	{
-		return $this->signInFactory->create(function () {
-			$this->redirect('Homepage:');
-		});
+		$form = $this->signInFactory->create();
+
+        $form->onSuccess[] = function () {
+            $this->redirect('Homepage:');
+		};
+
+		return $form;
 	}
 
 
@@ -33,9 +37,14 @@ class SignPresenter extends BasePresenter
 	 */
 	protected function createComponentSignUpForm()
 	{
-		return $this->signUpFactory->create(function () {
-			$this->redirect('Homepage:');
-		});
+		$form = $this->signUpFactory->create();
+
+        $form->onSuccess[] = function () {
+            $this->flashMessage('Registrace proběhla úspěšně');
+            $this->redirect('Sign:up');
+        };
+
+        return $form;
 	}
 
 

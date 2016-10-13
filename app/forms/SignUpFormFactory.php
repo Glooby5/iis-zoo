@@ -13,50 +13,62 @@ class SignUpFormFactory
 
 	const PASSWORD_MIN_LENGTH = 7;
 
-	/** @var FormFactory */
+	/**
+     * @var FormFactory
+     */
 	private $factory;
 
-	/** @var Model\UserManager */
-	private $userManager;
+    /**
+     * @var Model\UserManager
+     */
+    private $userManager;
 
-
-	public function __construct(FormFactory $factory, Model\UserManager $userManager)
+    public function __construct(FormFactory $factory, Model\UserManager $userManager)
 	{
 		$this->factory = $factory;
-		$this->userManager = $userManager;
-	}
+        $this->userManager = $userManager;
+    }
 
 
 	/**
 	 * @return Form
 	 */
-	public function create(callable $onSuccess)
+	public function create()
 	{
 		$form = $this->factory->create();
-		$form->addText('username', 'Pick a username:')
-			->setRequired('Please pick a username.');
+		$form->addText('firstname', 'Jméno:')
+			->setRequired('Zadejte jméno.');
 
-		$form->addText('email', 'Your e-mail:')
-			->setRequired('Please enter your e-mail.')
+        $form->addText('lastname', 'Příjmení:')
+			->setRequired('Zadejte příjmení.');
+
+		$form->addText('email', 'E-maill:')
+			->setRequired('Zadejte e-mail.')
 			->addRule($form::EMAIL);
 
-		$form->addPassword('password', 'Create a password:')
+		$form->addPassword('password', 'Heslo:')
 			->setOption('description', sprintf('at least %d characters', self::PASSWORD_MIN_LENGTH))
 			->setRequired('Please create a password.')
 			->addRule($form::MIN_LENGTH, NULL, self::PASSWORD_MIN_LENGTH);
 
-		$form->addSubmit('send', 'Sign up');
+        $form->addPassword('passwordCheck', 'Heslo znovu:')
+            ->setRequired()
+            ->addRule($form::EQUAL, 'Hesla se neshodují', $form['password']);
 
-		$form->onSuccess[] = function (Form $form, $values) use ($onSuccess) {
-			try {
-				$this->userManager->add($values->username, $values->email, $values->password);
-			} catch (Model\DuplicateNameException $e) {
-				$form->addError('Username is already taken.');
-				return;
-			}
-			$onSuccess();
-		};
+		$form->addSubmit('send', 'Zaregistrovat se');
+
+		$form->onSuccess[] = [$this, 'onSuccess'];
 		return $form;
+	}
+
+
+    public function onSuccess(Form $form)
+    {
+        try {
+            $this->userManager->add($form->getValues());
+        } catch (Model\DuplicateNameException $e) {
+            $form->addError('Username is already taken.');
+        }
 	}
 
 }
