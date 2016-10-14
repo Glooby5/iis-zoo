@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "02feaf2f0a6ced614ffd7eab1876ae89",
-    "content-hash": "13a63c9ce46e07eac0203b62232be7c1",
+    "hash": "87705d2d0e4f33dbb14fbbb4503217fc",
+    "content-hash": "71a6c887568168be47771665ab4393c0",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -1052,6 +1052,53 @@
             "time": "2016-07-07 20:48:31"
         },
         {
+            "name": "kdyby/fake-session",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kdyby/FakeSession.git",
+                "reference": "385fe90f8ede04c25c9fd8c24b3a4e4ac0fcb2d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kdyby/FakeSession/zipball/385fe90f8ede04c25c9fd8c24b3a4e4ac0fcb2d3",
+                "reference": "385fe90f8ede04c25c9fd8c24b3a4e4ac0fcb2d3",
+                "shasum": ""
+            },
+            "require": {
+                "nette/di": "~2.2@dev",
+                "nette/http": "~2.2@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kdyby\\FakeSession\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Filip Procházka",
+                    "email": "filip@prochazka.su",
+                    "homepage": "http://filip-prochazka.com"
+                }
+            ],
+            "description": "FakeSession class for Nette Framework",
+            "homepage": "http://kdyby.org",
+            "keywords": [
+                "http",
+                "kdyby",
+                "nette",
+                "session"
+            ],
+            "time": "2015-02-16 16:31:32"
+        },
+        {
             "name": "latte/latte",
             "version": "v2.4.2",
             "source": {
@@ -1116,6 +1163,79 @@
                 "twig"
             ],
             "time": "2016-09-27 13:10:19"
+        },
+        {
+            "name": "mrtnzlml/testbench",
+            "version": "v2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mrtnzlml/testbench.git",
+                "reference": "f62bcca0130a612421ba82486eeca0da761a0aaf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mrtnzlml/testbench/zipball/f62bcca0130a612421ba82486eeca0da761a0aaf",
+                "reference": "f62bcca0130a612421ba82486eeca0da761a0aaf",
+                "shasum": ""
+            },
+            "require": {
+                "kdyby/fake-session": "^2.0",
+                "nette/application": "^2.4",
+                "nette/bootstrap": "^2.4",
+                "nette/di": "^2.4",
+                "nette/safe-stream": "^2.3",
+                "nette/security": "^2.4",
+                "nette/tester": "2.0.x-dev as v1.7",
+                "nette/utils": "^2.4",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "kdyby/doctrine": "^3.1",
+                "kdyby/doctrine-cache": "^2.5",
+                "kdyby/doctrine-dbal-batchimport": "dev-master",
+                "kdyby/events": "^3.0",
+                "latte/latte": "^2.4",
+                "nette/database": "^2.4",
+                "nette/forms": "^2.4",
+                "nette/robot-loader": "^2.4",
+                "tracy/tracy": "^2.4",
+                "zenify/doctrine-migrations": "^2.3"
+            },
+            "suggest": {
+                "kdyby/doctrine": "Allows enhanced database tests using Doctrine",
+                "kdyby/doctrine-dbal-batchimport": "Allows SQL scripts import for Doctrine (required with kdyby/doctrine)",
+                "nette/database": "Allows enhanced database tests using Nette\\Database",
+                "zenify/doctrine-migrations": "Migrate database to the fresh state"
+            },
+            "bin": [
+                "src/run-tests"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Testbench\\": [
+                        "src/",
+                        "src/Traits/"
+                    ]
+                },
+                "files": [
+                    "src/Testbench.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Martin Zlámal",
+                    "homepage": "http://zlml.cz/"
+                }
+            ],
+            "description": "Simple integration testing tool for Nette Framework applications",
+            "time": "2016-10-12 15:56:17"
         },
         {
             "name": "nette/application",
@@ -2078,6 +2198,62 @@
             "time": "2016-05-17 15:49:45"
         },
         {
+            "name": "nette/tester",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/tester.git",
+                "reference": "7c21d99b7699f85bcd8e3073b7a475129b660b0f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/tester/zipball/7c21d99b7699f85bcd8e3073b7a475129b660b0f",
+                "reference": "7c21d99b7699f85bcd8e3073b7a475129b660b0f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "bin": [
+                "src/tester"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "An easy-to-use PHP unit testing framework.",
+            "homepage": "https://tester.nette.org",
+            "keywords": [
+                "nette",
+                "testing",
+                "unit"
+            ],
+            "time": "2016-08-05 13:39:28"
+        },
+        {
             "name": "nette/utils",
             "version": "v2.4.1",
             "source": {
@@ -2322,67 +2498,19 @@
             "time": "2016-09-30 14:17:54"
         }
     ],
-    "packages-dev": [
+    "packages-dev": [],
+    "aliases": [
         {
-            "name": "nette/tester",
-            "version": "v1.7.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nette/tester.git",
-                "reference": "d97534578e8cf66eabe081e7d5eaa4dd527ab0c8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/d97534578e8cf66eabe081e7d5eaa4dd527ab0c8",
-                "reference": "d97534578e8cf66eabe081e7d5eaa4dd527ab0c8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "bin": [
-                "src/tester"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.7-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause",
-                "GPL-2.0",
-                "GPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "David Grudl",
-                    "homepage": "https://davidgrudl.com"
-                },
-                {
-                    "name": "Nette Community",
-                    "homepage": "https://nette.org/contributors"
-                }
-            ],
-            "description": "An easy-to-use PHP unit testing framework.",
-            "homepage": "https://tester.nette.org",
-            "keywords": [
-                "nette",
-                "testing",
-                "unit"
-            ],
-            "time": "2016-03-19 14:34:02"
+            "alias": "v1.7",
+            "alias_normalized": "1.7.0.0",
+            "version": "2.0.9999999.9999999-dev",
+            "package": "nette/tester"
         }
     ],
-    "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "nette/tester": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

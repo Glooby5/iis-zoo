@@ -4,31 +4,35 @@ namespace Test;
 
 use Doctrine\ORM\Tools\SchemaValidator;
 use Kdyby\Doctrine\EntityManager;
-use Nette;
+use Testbench\TCompiledContainer;
 use Tester;
 use Tester\Assert;
 
-$container = require __DIR__ . '/bootstrap.php';
+require __DIR__ . '/bootstrap.php';
 
 
 class DatabaseTest extends Tester\TestCase
 {
-	private $container;
+    use TCompiledContainer;
 
+    /***
+     * @var EntityManager
+     */
+    private $entityManager;
 
-	function __construct(Nette\DI\Container $container)
+	function __construct()
 	{
-		$this->container = $container;
+		$this->entityManager = $this->getService(EntityManager::class);
 	}
 
 	function testSomething()
 	{
 		Assert::true(TRUE);
 
-		$em = $this->container->getByType(EntityManager::class);
-
-		$validator = new SchemaValidator($em);
+		$validator = new SchemaValidator($this->entityManager);
         $errors = $validator->validateMapping();
+
+        Assert::null($errors);
 
         if (count($errors) > 0) {
             echo implode("\n\n", $errors);
@@ -37,5 +41,5 @@ class DatabaseTest extends Tester\TestCase
 }
 
 
-$test = new DatabaseTest($container);
+$test = new DatabaseTest();
 $test->run();
