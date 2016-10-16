@@ -12,11 +12,7 @@ session:
 
 services:
 	- App\Model\UserManager
-	- App\Forms\FormFactory
-	- App\Forms\SignInFormFactory
-	- App\Forms\SignUpFormFactory
 
-	- App\Repositories\UserRepository
 	router: App\RouterFactory::createRouter
 
 extensions:
@@ -24,3 +20,7 @@ extensions:
 	events: Kdyby\Events\DI\EventsExtension
 	annotations: Kdyby\Annotations\DI\AnnotationsExtension
 	doctrine: Kdyby\Doctrine\DI\OrmExtension
+
+includes:
+    - forms.neon
+    - repositories.neon

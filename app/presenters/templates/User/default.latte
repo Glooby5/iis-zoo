@@ -1,0 +1,13 @@
+{block content}
+<h1 n:block=title>Přehled uživatelů</h1>
+
+<table>
+    {foreach $users as $myUser}
+        <tr>
+            <td><a n:href="User:detail $myUser->getId()" n:if="$user->isInRole(\App\Entities\User::ADMIN)">{$myUser->getId()}</a></td>
+            <td>{$myUser->getFirstname()}</td>
+            <td>{$myUser->getLastname()}</td>
+            <td>{$myUser->getRole()}</td>
+        </tr>
+    {/foreach}
+</table>

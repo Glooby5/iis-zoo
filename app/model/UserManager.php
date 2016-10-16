@@ -13,15 +13,15 @@ use Nette\Security\Passwords;
  */
 class UserManager implements Nette\Security\IAuthenticator
 {
-	use Nette\SmartObject;
+    use Nette\SmartObject;
 
-	const
-		TABLE_NAME = 'users',
-		COLUMN_ID = 'id',
-		COLUMN_NAME = 'username',
-		COLUMN_PASSWORD_HASH = 'password',
-		COLUMN_EMAIL = 'email',
-		COLUMN_ROLE = 'role';
+    const
+        TABLE_NAME = 'users',
+        COLUMN_ID = 'id',
+        COLUMN_NAME = 'username',
+        COLUMN_PASSWORD_HASH = 'password',
+        COLUMN_EMAIL = 'email',
+        COLUMN_ROLE = 'role';
 
     /**
      * @var UserRepository
@@ -30,20 +30,19 @@ class UserManager implements Nette\Security\IAuthenticator
 
 
     public function __construct(UserRepository $userRepository)
-	{
+    {
         $this->userRepository = $userRepository;
     }
 
 
     /**
-     * Performs an authentication.
      * @param array $credentials
-     * @return Nette\Security\Identity
+     * @return User
      * @throws Nette\Security\AuthenticationException
      */
-	public function authenticate(array $credentials)
-	{
-		list($username, $password) = $credentials;
+    public function authenticate(array $credentials)
+    {
+        list($username, $password) = $credentials;
 
         $user = $this->userRepository->findOneBy(['email' => $username]);
 
@@ -58,24 +57,16 @@ class UserManager implements Nette\Security\IAuthenticator
             $this->userRepository->getEntityManager()->flush();
         }
 
-		$arrayData = [
-		    'id' => $user->getId(),
-		    'email' => $user->getEmail(),
-		    'firstname' => $user->getFirstname(),
-		    'lastname' => $user->getLastname(),
-		    'role' => $user->getRole(),
-        ];
-
-		return new Nette\Security\Identity($user->getId(), $user->getRole(), $arrayData);
-	}
+        return $user;
+    }
 
 
     /**
      * @param Nette\Utils\ArrayHash $data
      * @throws DuplicateNameException
      */
-	public function add(Nette\Utils\ArrayHash $data)
-	{
+    public function add(Nette\Utils\ArrayHash $data)
+    {
         $existingUser = $this->userRepository->findBy(['email' => $data['email']]);
 
         if ($existingUser) {
@@ -91,7 +82,7 @@ class UserManager implements Nette\Security\IAuthenticator
 
         $this->userRepository->getEntityManager()->persist($user);
         $this->userRepository->getEntityManager()->flush();
-	}
+    }
 
 }
 

@@ -1,7 +1,6 @@
 <?php
 
-if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) || !isset($_SERVER['REMOTE_ADDR']) ||
-	!in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1']))
+if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) || !isset($_SERVER['REMOTE_ADDR']))
 {
 	header('HTTP/1.1 403 Forbidden');
 	echo 'Adminer is available only from localhost';

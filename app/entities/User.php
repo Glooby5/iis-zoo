@@ -4,12 +4,13 @@ namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 use Kdyby\Doctrine\Entities\Attributes\Identifier;
+use Nette\Security\IIdentity;
 use Nette\Utils\DateTime;
 
 /**
  * @ORM\Entity
  */
-class User
+class User implements IIdentity
 {
     use Identifier;
 
@@ -74,7 +75,7 @@ class User
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail()
     {
         return $this->email;
     }
@@ -90,7 +91,7 @@ class User
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword()
     {
         return $this->password;
     }
@@ -106,7 +107,7 @@ class User
     /**
      * @return string
      */
-    public function getFirstname(): string
+    public function getFirstname()
     {
         return $this->firstname;
     }
@@ -122,7 +123,7 @@ class User
     /**
      * @return string
      */
-    public function getLastname(): string
+    public function getLastname()
     {
         return $this->lastname;
     }
@@ -138,7 +139,7 @@ class User
     /**
      * @return string
      */
-    public function getPersonalNumber(): string
+    public function getPersonalNumber()
     {
         return $this->personalNumber;
     }
@@ -154,7 +155,7 @@ class User
     /**
      * @return DateTime
      */
-    public function getBirthday(): DateTime
+    public function getBirthday()
     {
         return $this->birthday;
     }
@@ -170,7 +171,7 @@ class User
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
@@ -186,7 +187,7 @@ class User
     /**
      * @return string
      */
-    public function getRole(): string
+    public function getRole()
     {
         return $this->role;
     }
@@ -202,7 +203,7 @@ class User
     /**
      * @return Cleaning[]
      */
-    public function getCleanings(): array
+    public function getCleanings()
     {
         return $this->cleanings;
     }
@@ -213,5 +214,10 @@ class User
     public function setCleanings(array $cleanings)
     {
         $this->cleanings = $cleanings;
+    }
+
+    function getRoles()
+    {
+        return [$this->getRole()];
     }
 }
