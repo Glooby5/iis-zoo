@@ -65,6 +65,9 @@ class UserRepository
         return $this->entityManager;
     }
 
-
+    public function findAll()
+    {
+        return $this->repository->findAll();
+    }
 
 }

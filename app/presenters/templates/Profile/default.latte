@@ -1,0 +1,35 @@
+{block content}
+<h1 n:block=title>Můj profil</h1>
+
+<table>
+    <tr>
+        <td>ID</td>
+        <td>{$user->getIdentity()->getId()}</td>
+    </tr>
+    <tr>
+        <td>Jméno</td>
+        <td>{$user->getIdentity()->getFirstname()}</td>
+    </tr>
+    <tr>
+        <td>Příjmení</td>
+        <td>{$user->getIdentity()->getLastname()}</td>
+    </tr>
+    <tr>
+        <td>Titul</td>
+        <td>{$user->getIdentity()->getTitle()}</td>
+    </tr>
+    <tr>
+        <td>Rodné číslo</td>
+        <td>{$user->getIdentity()->getPersonalNumber()}</td>
+    </tr>
+    <tr>
+        <td>Datum narození</td>
+        <td>{$user->getIdentity()->getBirthday()|date:'%d.%m.%Y'}</td>
+    </tr>
+    <tr>
+        <td>Role</td>
+        <td>{$user->getIdentity()->getRole()}</td>
+    </tr>
+</table>
+
+<a n:href="Profile:edit">Upravit</a>
