@@ -33,7 +33,7 @@ class Enclosure
 
     /**
      * @var EnclosureType
-     * @ORM\ManyToOne(targetEntity="EnclosureType")
+     * @ORM\ManyToOne(targetEntity="EnclosureType", inversedBy="enclosures")
      */
     protected $enclosureType;
 
