@@ -1,0 +1,13 @@
+{block content}
+<h1 n:block=title>Přehled výběhů</h1>
+
+<table>
+    {foreach $enclosures as $enclosure}
+        <tr>
+            <td><a n:href="Enclosure:detail $enclosure->getId()">{$enclosure->getId()}</a></td>
+            <td>{$enclosure->getLabel()}</td>
+        </tr>
+    {/foreach}
+</table>
+
+<a n:href="Enclosure:create">Vytvořit nový</a>
