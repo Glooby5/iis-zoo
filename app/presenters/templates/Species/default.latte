@@ -1,0 +1,11 @@
+{block content}
+<h1 n:block=title>Přehled druhů</h1>
+
+<table>
+    {foreach $allSpecies as $species}
+        <tr>
+            <td><a n:href="Species:detail $species->getId()">{$species->getId()}</a></td>
+            <td>{$species->getName()}</td>
+        </tr>
+    {/foreach}
+</table>

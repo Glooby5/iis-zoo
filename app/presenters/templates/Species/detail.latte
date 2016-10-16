@@ -1,0 +1,21 @@
+{block content}
+<h1 n:block=title>Detail druhu zvířete</h1>
+
+<table>
+    <tr>
+        <td>ID</td>
+        <td>{$species->getId()}</td>
+    </tr>
+    <tr>
+        <td>Název</td>
+        <td>{$species->getName()}</td>
+    </tr>
+    <tr>
+        <td>Výskyt</td>
+        <td>{$species->getOccurrence()}</td>
+    </tr>
+</table>
+
+
+<a n:href="Species:edit $species->getId()">Upravit</a>
+<a n:href="Species:delete $species->getId()">Odstranit</a>

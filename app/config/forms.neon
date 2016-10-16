@@ -5,3 +5,5 @@ services:
 	- App\Forms\SignUpFormFactory
 
 	- App\User\Forms\UserEditFormFactory
+
+	- App\User\Forms\SpeciesFormFactory
