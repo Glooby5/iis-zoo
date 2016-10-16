@@ -36,4 +36,70 @@ class Enclosure
      * @ORM\ManyToOne(targetEntity="EnclosureType")
      */
     protected $enclosureType;
+
+
+    /**
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param string $label
+     */
+    public function setLabel(string $label)
+    {
+        $this->label = $label;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * @param string $size
+     */
+    public function setSize(string $size)
+    {
+        $this->size = $size;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCapacity()
+    {
+        return $this->capacity;
+    }
+
+    /**
+     * @param int $capacity
+     */
+    public function setCapacity(int $capacity)
+    {
+        $this->capacity = $capacity;
+    }
+
+    /**
+     * @return EnclosureType
+     */
+    public function getEnclosureType()
+    {
+        return $this->enclosureType;
+    }
+
+    /**
+     * @param EnclosureType $enclosureType
+     */
+    public function setEnclosureType($enclosureType)
+    {
+        $this->enclosureType = $enclosureType;
+    }
+
 }

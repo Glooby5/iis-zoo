@@ -2,3 +2,4 @@ services:
 	- App\Repositories\UserRepository
 	- App\Repositories\SpeciesRepository
 	- App\Repositories\EnclosureTypeRepository
+	- App\Repositories\EnclosureRepository

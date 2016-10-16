@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Entities\EnclosureType;
+use App\Entities\Enclosure;
 use Kdyby\Doctrine\EntityManager;
 use Kdyby\Doctrine\EntityRepository;
 
-class EnclosureTypeRepository
+class EnclosureRepository
 {
     /**
      * @var EntityManager
@@ -19,14 +19,21 @@ class EnclosureTypeRepository
     private $repository;
 
     /**
+     * @var EnclosureTypeRepository
+     */
+    private $enclosureTypeRepository;
+
+    /**
      * EnclosureRepository constructor.
      *
      * @param EntityManager $entityManager
+     * @param EnclosureTypeRepository $enclosureTypeRepository
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, EnclosureTypeRepository $enclosureTypeRepository)
     {
         $this->entityManager = $entityManager;
-        $this->repository = $this->entityManager->getRepository(EnclosureType::class);
+        $this->repository = $this->entityManager->getRepository(Enclosure::class);
+        $this->enclosureTypeRepository = $enclosureTypeRepository;
     }
 
     /**
@@ -39,7 +46,7 @@ class EnclosureTypeRepository
 
     /**
      * @param $id
-     * @return EnclosureType|null
+     * @return Enclosure|null
      */
     public function find($id)
     {
@@ -47,16 +54,11 @@ class EnclosureTypeRepository
     }
 
     /**
-     * @return EnclosureType[]
+     * @return Enclosure[]
      */
     public function findAll()
     {
         return $this->repository->findAll();
-    }
-
-    public function findPairs()
-    {
-        return $this->repository->findPairs([], 'name');
     }
 
     public function saveFormData($values)
@@ -68,10 +70,13 @@ class EnclosureTypeRepository
         }
 
         if ( ! $enclosureType) {
-            $enclosureType = new EnclosureType();
+            $enclosureType = new Enclosure();
         }
 
-        $enclosureType->setName($values->name);
+        $enclosureType->setLabel($values->label);
+        $enclosureType->setCapacity($values->capacity);
+        $enclosureType->setSize($values->size);
+        $enclosureType->setEnclosureType($this->enclosureTypeRepository->find($values->enclosureType));
 
         $this->entityManager->persist($enclosureType);
         $this->entityManager->flush();

@@ -1,0 +1,29 @@
+{block content}
+<h1 n:block=title>Detail výběhu</h1>
+
+<table>
+    <tr>
+        <td>ID</td>
+        <td>{$enclosure->getId()}</td>
+    </tr>
+    <tr>
+        <td>Název</td>
+        <td>{$enclosure->getLabel()}</td>
+    </tr>
+    <tr>
+        <td>Velikost</td>
+        <td>{$enclosure->getSize()}</td>
+    </tr>
+    <tr>
+        <td>Kapacita</td>
+        <td>{$enclosure->getCapacity()}</td>
+    </tr>
+    <tr>
+        <td>Typ</td>
+        <td><a n:href="EnclosureType:detail $enclosure->getEnclosureType()->getId()">{$enclosure->getEnclosureType()->getName()}</a></td>
+    </tr>
+</table>
+
+
+<a n:href="Enclosure:edit $enclosure->getId()">Upravit</a>
+<a n:href="Enclosure:delete $enclosure->getId()">Odstranit</a>
