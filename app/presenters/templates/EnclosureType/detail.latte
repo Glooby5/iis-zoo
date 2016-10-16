@@ -15,3 +15,14 @@
 
 <a n:href="EnclosureType:edit $enclosureType->getId()">Upravit</a>
 <a n:href="EnclosureType:delete $enclosureType->getId()">Odstranit</a>
+
+<h2>Výběhy</h2>
+
+<table>
+    {foreach $enclosureType->getEnclosures() as $enclosure}
+        <tr>
+            <td><a n:href="Enclosure:detail $enclosure->getId()">{$enclosure->getId()}</a></td>
+            <td>{$enclosure->getLabel()}</td>
+        </tr>
+    {/foreach}
+</table>
