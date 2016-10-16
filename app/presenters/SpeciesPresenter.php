@@ -4,7 +4,7 @@ namespace App\Presenters;
 
 use App\Entities\Species;
 use App\Repositories\SpeciesRepository;
-use App\User\Forms\SpeciesFormFactory;
+use App\Forms\SpeciesFormFactory;
 use Nette;
 use Nette\Http\IResponse;
 

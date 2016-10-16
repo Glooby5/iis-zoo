@@ -1,10 +1,8 @@
 <?php
 
-namespace App\User\Forms;
+namespace App\Forms;
 
 use App\Entities\Species;
-use App\Entities\User;
-use App\Forms\FormFactory;
 use App\Repositories\SpeciesRepository;
 use Nette;
 use Nette\Application\UI\Form;

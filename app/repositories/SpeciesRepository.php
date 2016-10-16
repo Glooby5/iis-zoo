@@ -48,24 +48,6 @@ class SpeciesRepository
     }
 
     /**
-     * @param array $options
-     * @return Species|null
-     */
-    public function findOneBy(array $options)
-    {
-        return $this->repository->findOneBy($options);
-    }
-
-    /**
-     * @param array $options
-     * @return Species[]|null
-     */
-    public function findBy(array $options)
-    {
-        return $this->repository->findBy($options);
-    }
-
-    /**
      * @return Species[]
      */
     public function findAll()

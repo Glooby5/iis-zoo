@@ -6,4 +6,4 @@ services:
 
 	- App\User\Forms\UserEditFormFactory
 
-	- App\User\Forms\SpeciesFormFactory
+	- App\Forms\SpeciesFormFactory
