@@ -1,0 +1,13 @@
+{block content}
+<h1 n:block=title>Přehled typů výběhu</h1>
+
+<table>
+    {foreach $enclosureTypes as $enclosureType}
+        <tr>
+            <td><a n:href="Enclosure:detail $enclosureType->getId()">{$enclosureType->getId()}</a></td>
+            <td>{$enclosureType->getName()}</td>
+        </tr>
+    {/foreach}
+</table>
+
+<a n:href="EnclosureType:create">Vytvořit nový</a>

@@ -1,0 +1,17 @@
+{block content}
+<h1 n:block=title>Detail typů výběhu</h1>
+
+<table>
+    <tr>
+        <td>ID</td>
+        <td>{$enclosureType->getId()}</td>
+    </tr>
+    <tr>
+        <td>Název</td>
+        <td>{$enclosureType->getName()}</td>
+    </tr>
+</table>
+
+
+<a n:href="EnclosureType:edit $enclosureType->getId()">Upravit</a>
+<a n:href="EnclosureType:delete $enclosureType->getId()">Odstranit</a>
