@@ -7,3 +7,4 @@ services:
 	- App\User\Forms\UserEditFormFactory
 
 	- App\Forms\SpeciesFormFactory
+	- App\Forms\EnclosureTypeFormFactory
