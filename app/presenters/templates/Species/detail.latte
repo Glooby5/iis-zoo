@@ -19,3 +19,15 @@
 
 <a n:href="Species:edit $species->getId()">Upravit</a>
 <a n:href="Species:delete $species->getId()">Odstranit</a>
+
+
+<h2>Zvířata</h2>
+
+<table>
+    {foreach $species->getAnimals() as $animal}
+        <tr>
+            <td><a n:href="Animal:detail $animal->getId()">{$animal->getId()}</a></td>
+            <td>{$animal->getName()}</td>
+        </tr>
+    {/foreach}
+</table>

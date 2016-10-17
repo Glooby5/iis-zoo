@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kdyby\Doctrine\Entities\Attributes\Identifier;
 
@@ -24,6 +25,20 @@ class Species
      * @ORM\Column(type="string", nullable=true)
      */
     protected $occurrence;
+
+    /**
+     * @var Animal[]
+     * @ORM\OneToMany(targetEntity="Animal", mappedBy="species")
+     */
+    protected $animals;
+
+    /**
+     * Species constructor.
+     */
+    public function __construct()
+    {
+        $this->animals = new ArrayCollection();
+    }
 
 
     /**
@@ -56,5 +71,13 @@ class Species
     public function setOccurrence(string $occurrence)
     {
         $this->occurrence = $occurrence;
+    }
+
+    /**
+     * @return Animal[]
+     */
+    public function getAnimals()
+    {
+        return $this->animals;
     }
 }

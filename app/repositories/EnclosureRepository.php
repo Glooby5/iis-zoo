@@ -61,6 +61,18 @@ class EnclosureRepository
         return $this->repository->findAll();
     }
 
+    /**
+     * @return Enclosure[]
+     */
+    public function findPairs()
+    {
+        return $this->repository->findPairs([], 'label');
+    }
+
+    /**
+     * @param $values
+     * @return Enclosure
+     */
     public function saveFormData($values)
     {
         $enclosureType = NULL;

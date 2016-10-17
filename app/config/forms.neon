@@ -9,3 +9,5 @@ services:
 	- App\Forms\SpeciesFormFactory
 	- App\Forms\EnclosureTypeFormFactory
 	- App\Forms\EnclosureFormFactory
+	- App\Forms\AnimalFormFactory
+	- App\Forms\AnimalDeathFormFactory

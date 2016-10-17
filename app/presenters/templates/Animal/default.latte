@@ -1,0 +1,13 @@
+{block content}
+<h1 n:block=title>Přehled zvířat</h1>
+
+<table>
+    {foreach $animals as $animal}
+        <tr>
+            <td><a n:href="Animal:detail $animal->getId()">{$animal->getId()}</a></td>
+            <td>{$animal->getName()}</td>
+        </tr>
+    {/foreach}
+</table>
+
+<a n:href="Animal:create">Vytvořit nové</a>

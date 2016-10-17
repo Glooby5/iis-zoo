@@ -1,0 +1,57 @@
+{block content}
+<h1 n:block=title>Detail zvířete</h1>
+
+<table>
+    <tr>
+        <td>ID</td>
+        <td>{$animal->getId()}</td>
+    </tr>
+    <tr>
+        <td>Název</td>
+        <td>{$animal->getName()}</td>
+    </tr>
+    <tr>
+        <td>Pohlaví</td>
+        <td>{$animal->getSex()}</td>
+    </tr>
+    <tr>
+        <td>Datum narození</td>
+        <td>{$animal->getBirthday()|date:'%d.%m.%Y'}</td>
+    </tr>
+    <tr>
+        <td>Země původu</td>
+        <td>{$animal->getCountry()}</td>
+    </tr>
+    <tr>
+        <td>Druh</td>
+        <td><a n:href="Species:detail $animal->getSpecies()->getId()">{$animal->getSpecies()->getName()}</a></td>
+    </tr>
+    <tr>
+        <td>Výběh</td>
+        <td><a n:href="Enclosure:detail $animal->getEnclosure()->getId()">{$animal->getEnclosure()->getLabel()}</a></td>
+    </tr>
+    <tr n:if="$animal->getMother()">
+        <td>Matka</td>
+        <td><a n:href="Animal:detail $animal->getMother()->getId()">{$animal->getMother()->getName()}</a></td>
+    </tr>
+    <tr n:if="$animal->getFather()">
+        <td>Otec</td>
+        <td><a n:href="Animal:detail $animal->getFather()->getId()">{$animal->getFather()->getName()}</a></td>
+    </tr>
+    {if $animal->isDead()}
+        <tr>
+        {if $animal->getDateOfDeath()}
+            <td>Datum úmrtí</td>
+            <td>{$animal->getBirthday()|date:'%d.%m.%Y'}</td>
+        {else}
+            <td>Žije?</td>
+            <td>Ne</td>
+        {/if}
+        </tr>
+    {/if}
+</table>
+
+
+<a n:href="Animal:edit $animal->getId()">Upravit</a>
+<a n:href="Animal:delete $animal->getId()">Odstranit</a>
+<a n:href="Animal:death $animal->getId()" n:if=" ! $animal->isDead()">Umřít</a>

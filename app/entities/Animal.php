@@ -37,17 +37,201 @@ class Animal
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $from;
+    protected $country;
 
     /**
-     * @var string
-     * @ORM\ManyToOne(targetEntity="Species")
+     * @var Species
+     * @ORM\ManyToOne(targetEntity="Species", inversedBy="animals")
      */
     protected $species;
 
     /**
-     * @var string
-     * @ORM\ManyToOne(targetEntity="Enclosure")
+     * @var Enclosure
+     * @ORM\ManyToOne(targetEntity="Enclosure", inversedBy="animals")
      */
     protected $enclosure;
+
+    /**
+     * @var Animal
+     * @ORM\OneToOne(targetEntity="Animal")
+     */
+    protected $mother = NULL;
+
+    /**
+     * @var Animal
+     * @ORM\OneToOne(targetEntity="Animal")
+     */
+    protected $father = NULL;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $dateOfDeath;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $dead = FALSE;
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSex()
+    {
+        return $this->sex;
+    }
+
+    /**
+     * @param string $sex
+     */
+    public function setSex(string $sex)
+    {
+        $this->sex = $sex;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * @param \DateTime $birthday
+     */
+    public function setBirthday(\DateTime $birthday)
+    {
+        $this->birthday = $birthday;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $country
+     */
+    public function setCountry(string $country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return Species
+     */
+    public function getSpecies()
+    {
+        return $this->species;
+    }
+
+    /**
+     * @param Species $species
+     */
+    public function setSpecies(Species $species)
+    {
+        $this->species = $species;
+    }
+
+    /**
+     * @return Enclosure
+     */
+    public function getEnclosure()
+    {
+        return $this->enclosure;
+    }
+
+    /**
+     * @param Enclosure $enclosure
+     */
+    public function setEnclosure(Enclosure $enclosure)
+    {
+        $this->enclosure = $enclosure;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateOfDeath()
+    {
+        return $this->dateOfDeath;
+    }
+
+    /**
+     * @param \DateTime $dateOfDeath
+     */
+    public function setDateOfDeath(\DateTime $dateOfDeath)
+    {
+        $this->dateOfDeath = $dateOfDeath;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isDead(): bool
+    {
+        return $this->dead;
+    }
+
+    /**
+     * @param boolean $dead
+     */
+    public function setDead(bool $dead)
+    {
+        $this->dead = $dead;
+    }
+
+    /**
+     * @return Animal|NULL
+     */
+    public function getMother()
+    {
+        return $this->mother;
+    }
+
+    /**
+     * @param Animal $mother
+     */
+    public function setMother(Animal $mother)
+    {
+        $this->mother = $mother;
+    }
+
+    /**
+     * @return Animal|NULL
+     */
+    public function getFather()
+    {
+        return $this->father;
+    }
+
+    /**
+     * @param Animal $father
+     */
+    public function setFather(Animal $father)
+    {
+        $this->father = $father;
+    }
 }
