@@ -55,6 +55,18 @@ class SpeciesRepository
         return $this->repository->findAll();
     }
 
+    /**
+     * @return Species[]
+     */
+    public function findPairs()
+    {
+        return $this->repository->findPairs([], 'name');
+    }
+
+    /**
+     * @param $values
+     * @return Species
+     */
     public function saveFormData($values)
     {
         $species = NULL;

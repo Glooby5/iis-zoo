@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kdyby\Doctrine\Entities\Attributes\Identifier;
 
@@ -36,6 +37,20 @@ class Enclosure
      * @ORM\ManyToOne(targetEntity="EnclosureType", inversedBy="enclosures")
      */
     protected $enclosureType;
+
+    /**
+     * @var Animal[]
+     * @ORM\OneToMany(targetEntity="Animal", mappedBy="enclosure")
+     */
+    protected $animals;
+
+    /**
+     * Enclosure constructor.
+     */
+    public function __construct()
+    {
+        $this->animals = new ArrayCollection();
+    }
 
 
     /**
@@ -102,4 +117,11 @@ class Enclosure
         $this->enclosureType = $enclosureType;
     }
 
+    /**
+     * @return Animal[]
+     */
+    public function getAnimals()
+    {
+        return $this->animals;
+    }
 }

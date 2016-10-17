@@ -27,3 +27,16 @@
 
 <a n:href="Enclosure:edit $enclosure->getId()">Upravit</a>
 <a n:href="Enclosure:delete $enclosure->getId()">Odstranit</a>
+
+
+<h2>Zvířata</h2>
+
+<table>
+    {foreach $enclosure->getAnimals() as $animal}
+        <tr>
+            <td><a n:href="Animal:detail $animal->getId()">{$animal->getId()}</a></td>
+            <td>{$animal->getName()}</td>
+        </tr>
+    {/foreach}
+</table>
+
