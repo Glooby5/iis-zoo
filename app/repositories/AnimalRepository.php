@@ -71,6 +71,31 @@ class AnimalRepository
     }
 
     /**
+     * @param Animal $animal
+     * @param string $sex
+     * @return array
+     */
+    public function findPotentialParent(Animal $animal = NULL, $sex = Animal::MALE)
+    {
+        $queryBuilder = $this->repository->createQueryBuilder()
+            ->select('a.name', 'a.id')
+            ->resetDQLPart('from')->from(Animal::class, 'a', 'a.id')
+            ->where('a.sex = :sex')
+            ->setParameter(':sex', $sex);
+
+        if ($animal) {
+            $queryBuilder
+                ->andWhere('a.id != :id')
+                ->setParameter(':id', $animal->getId());
+        }
+
+        return array_map(function ($row) {
+                return reset($row);
+            }, $queryBuilder->getQuery()->getArrayResult()
+        );
+    }
+
+    /**
      * @param $values
      * @return Animal
      */
@@ -99,10 +124,19 @@ class AnimalRepository
 
         $animal->setName($values->name);
         $animal->setSex($values->sex);
-        $animal->setBirthday($values->birthday ? new DateTime($values->birthday) : NULL);
         $animal->setCountry($values->country);
         $animal->setSpecies($this->speciesRepository->find($values->species_id));
         $animal->setEnclosure($this->enclosureRepository->find($values->enclosure_id));
+
+        if ($values->birthday) {
+            $animal->setBirthday(new DateTime($values->birthday));
+        }
+        if ($values->mother_id) {
+            $animal->setMother($this->find($values->mother_id));
+        }
+        if ($values->father_id) {
+            $animal->setFather($this->find($values->father_id));
+        }
 
         $this->entityManager->persist($animal);
         $this->entityManager->flush();

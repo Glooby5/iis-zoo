@@ -52,6 +52,18 @@ class Animal
     protected $enclosure;
 
     /**
+     * @var Animal
+     * @ORM\OneToOne(targetEntity="Animal")
+     */
+    protected $mother = NULL;
+
+    /**
+     * @var Animal
+     * @ORM\OneToOne(targetEntity="Animal")
+     */
+    protected $father = NULL;
+
+    /**
      * @var \DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -191,5 +203,35 @@ class Animal
         $this->dead = $dead;
     }
 
+    /**
+     * @return Animal|NULL
+     */
+    public function getMother()
+    {
+        return $this->mother;
+    }
 
+    /**
+     * @param Animal $mother
+     */
+    public function setMother(Animal $mother)
+    {
+        $this->mother = $mother;
+    }
+
+    /**
+     * @return Animal|NULL
+     */
+    public function getFather()
+    {
+        return $this->father;
+    }
+
+    /**
+     * @param Animal $father
+     */
+    public function setFather(Animal $father)
+    {
+        $this->father = $father;
+    }
 }

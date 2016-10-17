@@ -30,6 +30,14 @@
         <td>Výběh</td>
         <td><a n:href="Enclosure:detail $animal->getEnclosure()->getId()">{$animal->getEnclosure()->getLabel()}</a></td>
     </tr>
+    <tr n:if="$animal->getMother()">
+        <td>Matka</td>
+        <td><a n:href="Animal:detail $animal->getMother()->getId()">{$animal->getMother()->getName()}</a></td>
+    </tr>
+    <tr n:if="$animal->getFather()">
+        <td>Otec</td>
+        <td><a n:href="Animal:detail $animal->getFather()->getId()">{$animal->getFather()->getName()}</a></td>
+    </tr>
     {if $animal->isDead()}
         <tr>
         {if $animal->getDateOfDeath()}

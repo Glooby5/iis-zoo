@@ -80,6 +80,14 @@ class AnimalFormFactory extends Nette\Application\UI\Control
         ;
         $form->addText('country', 'Země původu')
         ;
+        $form->addSelect('mother_id', 'Matka')
+            ->setItems($this->animalRepository->findPotentialParent($animal, Animal::FEMALE))
+            ->setPrompt('- vyberte -')
+        ;
+        $form->addSelect('father_id', 'Otec')
+            ->setItems($this->animalRepository->findPotentialParent($animal, Animal::MALE))
+            ->setPrompt('- vyberte -')
+        ;
 
         $form->addSubmit('save', 'Uložit');
 
@@ -103,5 +111,13 @@ class AnimalFormFactory extends Nette\Application\UI\Control
         $form['sex']->setDefaultValue($animal->getSex());
         $form['birthday']->setDefaultValue($animal->getBirthday() ?  $animal->getBirthday()->format('Y-m-d') : NULL);
         $form['country']->setDefaultValue($animal->getCountry());
+
+        if ($animal->getMother()) {
+            $form['mother_id']->setDefaultValue($animal->getMother()->getId());
+        }
+
+        if ($animal->getFather()) {
+            $form['father_id']->setDefaultValue($animal->getFather()->getId());
+        }
     }
 }
