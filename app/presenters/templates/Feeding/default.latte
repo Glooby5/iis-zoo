@@ -1,0 +1,13 @@
+{block content}
+<h1 n:block=title>Přehled krmení</h1>
+
+<table>
+    {foreach $feedings as $feeding}
+        <tr>
+            <td><a n:href="Enclosure:detail $feeding->getId()">{$feeding->getId()}</a></td>
+            <td>{$feeding->getStart()|date:'%d.%m.%Y'}</td>
+        </tr>
+    {/foreach}
+</table>
+
+<a n:href="Feeding:create">Zadat nové</a>
