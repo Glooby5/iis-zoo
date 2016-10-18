@@ -4,3 +4,4 @@ services:
 	- App\Repositories\EnclosureTypeRepository
 	- App\Repositories\EnclosureRepository
 	- App\Repositories\AnimalRepository
+	- App\Repositories\FeedingRepository

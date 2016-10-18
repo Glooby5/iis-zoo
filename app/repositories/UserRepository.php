@@ -58,6 +58,14 @@ class UserRepository
     }
 
     /**
+     * @return User[]
+     */
+    public function findPairs()
+    {
+        return $this->repository->findPairs([], 'lastname');
+    }
+
+    /**
      * @return EntityManager
      */
     public function getEntityManager(): EntityManager

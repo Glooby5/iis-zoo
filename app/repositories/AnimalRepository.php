@@ -71,6 +71,14 @@ class AnimalRepository
     }
 
     /**
+     * @return Animal[]
+     */
+    public function findPairs()
+    {
+        return $this->repository->findPairs([], 'name');
+    }
+
+    /**
      * @param Animal $animal
      * @param string $sex
      * @return array
