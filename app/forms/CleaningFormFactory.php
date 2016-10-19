@@ -3,8 +3,10 @@
 namespace App\Forms;
 
 use App\Entities\Cleaning;
+use App\Entities\User;
 use App\Repositories\CleaningTypeRepository;
 use App\Repositories\EnclosureRepository;
+use App\Repositories\UserRepository;
 use Nette;
 use Nette\Application\UI\Form;
 
@@ -28,16 +30,23 @@ class CleaningFormFactory extends Nette\Application\UI\Control
      */
     private $enclosureRepository;
 
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
     public function __construct
     (
         FormFactory $factory,
         CleaningTypeRepository $cleaningTypeRepository,
-        EnclosureRepository $enclosureRepository
+        EnclosureRepository $enclosureRepository,
+        UserRepository $userRepository
     )
     {
         $this->factory = $factory;
         $this->cleaningTypeRepository = $cleaningTypeRepository;
         $this->enclosureRepository = $enclosureRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -72,6 +81,8 @@ class CleaningFormFactory extends Nette\Application\UI\Control
         $form->addText('end', 'Konec')
             ->setType('datetime')
             ->addRule(Form::FILLED, "`%label` povinný.");
+
+        $form->addMultiSelect('cleaners', 'Ošetřovatelé', $this->userRepository->findPairs());
 
         $form->addCheckbox('done', 'Provedeno');
 
@@ -110,5 +121,11 @@ class CleaningFormFactory extends Nette\Application\UI\Control
         if ($cleaning->getCleaningType()) {
             $form['cleaning_type_id']->setDefaultValue($cleaning->getCleaningType()->getId());
         }
+
+        $cleanersIds = $cleaning->getCleaners()->map(function (User $user) {
+            return $user->getId();
+        })->toArray();
+
+        $form['cleaners']->setDefaultValue($cleanersIds);
     }
 }

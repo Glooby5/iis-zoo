@@ -51,7 +51,7 @@ class Cleaning
 
     /**
      * @var User[]
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="cleanings")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="cleanings")
      */
     protected $cleaners;
 
@@ -157,7 +157,7 @@ class Cleaning
     }
 
     /**
-     * @return User[]
+     * @return ArrayCollection
      */
     public function getCleaners()
     {
@@ -171,6 +171,4 @@ class Cleaning
     {
         $this->cleaners->add($cleaner);
     }
-
-
 }

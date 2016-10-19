@@ -18,14 +18,21 @@ class CleaningRepository
      * @var EntityRepository
      */
     private $repository;
+
     /**
      * @var CleaningTypeRepository
      */
     private $cleaningTypeRepository;
+
     /**
      * @var EnclosureRepository
      */
     private $enclosureRepository;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
 
     /**
      * CleaningRepository constructor.
@@ -33,18 +40,21 @@ class CleaningRepository
      * @param EntityManager $entityManager
      * @param CleaningTypeRepository $cleaningTypeRepository
      * @param EnclosureRepository $enclosureRepository
+     * @param UserRepository $userRepository
      */
     public function __construct
     (
         EntityManager $entityManager,
         CleaningTypeRepository $cleaningTypeRepository,
-        EnclosureRepository $enclosureRepository
+        EnclosureRepository $enclosureRepository,
+        UserRepository $userRepository
     )
     {
         $this->entityManager = $entityManager;
         $this->repository = $this->entityManager->getRepository(Cleaning::class);
         $this->cleaningTypeRepository = $cleaningTypeRepository;
         $this->enclosureRepository = $enclosureRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -103,6 +113,13 @@ class CleaningRepository
 
         if ($values->end) {
             $cleaning->setEnd(new DateTime($values->end));
+        }
+
+        $cleaners = $cleaning->getCleaners();
+        $cleaners->clear();
+
+        foreach ($values->cleaners as $cleanerId) {
+            $cleaners->add($this->userRepository->find($cleanerId));
         }
 
         $this->entityManager->persist($cleaning);
