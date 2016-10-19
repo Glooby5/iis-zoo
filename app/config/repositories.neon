@@ -5,3 +5,4 @@ services:
 	- App\Repositories\EnclosureRepository
 	- App\Repositories\AnimalRepository
 	- App\Repositories\FeedingRepository
+	- App\Repositories\CleaningTypeRepository

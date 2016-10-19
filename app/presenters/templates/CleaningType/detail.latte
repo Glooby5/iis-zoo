@@ -1,0 +1,21 @@
+{block content}
+<h1 n:block=title>Detail typu čištění</h1>
+
+<table>
+    <tr>
+        <td>ID</td>
+        <td>{$cleaningType->getId()}</td>
+    </tr>
+    <tr>
+        <td>Název</td>
+        <td>{$cleaningType->getName()}</td>
+    </tr>
+    <tr>
+        <td>Pomůcky</td>
+        <td>{$cleaningType->getTools()}</td>
+    </tr>
+</table>
+
+
+<a n:href="CleaningType:edit $cleaningType->getId()">Upravit</a>
+<a n:href="CleaningType:delete $cleaningType->getId()">Odstranit</a>

@@ -4,7 +4,7 @@
 <table>
     {foreach $enclosureTypes as $enclosureType}
         <tr>
-            <td><a n:href="Enclosure:detail $enclosureType->getId()">{$enclosureType->getId()}</a></td>
+            <td><a n:href="EnclosureType:detail $enclosureType->getId()">{$enclosureType->getId()}</a></td>
             <td>{$enclosureType->getName()}</td>
         </tr>
     {/foreach}
