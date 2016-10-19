@@ -1,0 +1,13 @@
+{block content}
+<h1 n:block=title>Přehled typů čištění</h1>
+
+<table>
+    {foreach $cleaningTypes as $cleaningType}
+        <tr>
+            <td><a n:href="CleaningType:detail $cleaningType->getId()">{$cleaningType->getId()}</a></td>
+            <td>{$cleaningType->getName()}</td>
+        </tr>
+    {/foreach}
+</table>
+
+<a n:href="CleaningType:create">Vytvořit nový</a>
