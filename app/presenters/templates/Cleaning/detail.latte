@@ -1,0 +1,43 @@
+{block content}
+<h1 n:block=title>Detail čištění</h1>
+
+<table>
+    <tr>
+        <td>ID</td>
+        <td>{$cleaning->getId()}</td>
+    </tr>
+    <tr>
+        <td>Start</td>
+        <td>{$cleaning->getStart()|date:'%d.%m.%Y'}</td>
+    </tr>
+    <tr>
+        <td>Konec</td>
+        <td>{$cleaning->getEnd()|date:'%d.%m.%Y'}</td>
+    </tr>
+    <tr>
+        <td>Počet ošetřovatelů</td>
+        <td>{$cleaning->getAttendantsCount()}</td>
+    </tr>
+    <tr>
+        <td>Typ</td>
+        <td>
+            <a n:href="CleaningType:detail $cleaning->getCleaningType()->getId()">{$cleaning->getCleaningType()->getName()}</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Výběh</td>
+        <td>
+            <a n:href="Enclosure:detail $cleaning->getEnclosure()->getId()">{$cleaning->getEnclosure()->getLabel()}</a>
+        </td>
+    </tr>
+    {foreach $cleaning->getCleaners() as $cleaner}
+        <tr>
+            <td>Ošetřovatel</td>
+            <td><a n:href="User:detail $cleaner->getId()">{$cleaner->getLastname()}</a></td>
+        </tr>
+    {/foreach}
+</table>
+
+<a n:href="Cleaning:edit $cleaning->getId()">Upravit</a>
+<a n:href="Cleaning:delete $cleaning->getId()">Odstranit</a>
+

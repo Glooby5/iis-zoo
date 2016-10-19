@@ -13,3 +13,4 @@ services:
 	- App\Forms\AnimalDeathFormFactory
 	- App\Forms\FeedingFormFactory
 	- App\Forms\CleaningTypeFormFactory
+	- App\Forms\CleaningFormFactory

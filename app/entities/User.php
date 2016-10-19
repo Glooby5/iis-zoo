@@ -68,7 +68,7 @@ class User implements IIdentity
 
     /**
      * @var Cleaning[]
-     * @ORM\ManyToMany(targetEntity="Cleaning", inversedBy="cleaners")
+     * @ORM\ManyToMany(targetEntity="Cleaning", mappedBy="cleaners")
      */
     protected $cleanings;
 

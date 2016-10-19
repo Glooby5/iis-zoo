@@ -1,0 +1,13 @@
+{block content}
+<h1 n:block=title>Přehled čištění</h1>
+
+<table>
+    {foreach $cleanings as $cleaning}
+        <tr>
+            <td><a n:href="Cleaning:detail $cleaning->getId()">{$cleaning->getId()}</a></td>
+            <td>{$cleaning->getStart()|date:'%d.%m.%Y'}</td>
+        </tr>
+    {/foreach}
+</table>
+
+<a n:href="Cleaning:create">Zadat nové</a>

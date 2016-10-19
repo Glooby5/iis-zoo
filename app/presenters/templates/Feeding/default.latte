@@ -4,7 +4,7 @@
 <table>
     {foreach $feedings as $feeding}
         <tr>
-            <td><a n:href="Enclosure:detail $feeding->getId()">{$feeding->getId()}</a></td>
+            <td><a n:href="Feeding:detail $feeding->getId()">{$feeding->getId()}</a></td>
             <td>{$feeding->getStart()|date:'%d.%m.%Y'}</td>
         </tr>
     {/foreach}
