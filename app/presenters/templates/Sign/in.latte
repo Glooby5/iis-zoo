@@ -1,11 +1,29 @@
 {block content}
-<h1 n:block=title>Sign In</h1>
-
-{control signInForm}
-
-{* OR
-{import '../components/form.latte'}
-{include form signInForm}
-*}
-
-<p><a n:href="up">Don't have an account yet? Sign up.</a></p>
+<div class="container">
+    <div class="col-xs-6 offset-xs-3 block-center">
+        <h1 n:block="title" class="text-xs-center" >Přihlášení</h1>
+        {form signInForm class => "card card-block bg-faded"}
+            <div class="form-group row">
+                <label for="username" class="col-xs-3 col-form-label">Přihlašovací e-mail</label>
+                <div class="col-xs-9">
+                    {input username class => "form-control"}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password" class="col-xs-3 col-form-label">Heslo</label>
+                <div class="col-xs-9">
+                    {input password class => "form-control"}
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-9 offset-xs-3">
+                    {input remember class => "form-control"}
+                </div>
+            </div>
+            <div class="form-group center-block">
+                {input send class => "col-xs-12 btn btn-primary"}
+            </div>
+            <a n:href="up" class="col-xs-12 text-xl-center">Nemáte účet? Registrujte se.</a>
+        {/form}
+    </div>
+</div>

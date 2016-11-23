@@ -1,4 +1,73 @@
 {block content}
-<h1 n:block=title>Zadat čištění</h1>
 
-{control cleaningForm}
+<div class="container">
+    <h1 n:block="title" class="text-xs-center" >Zadat čištění</h1>
+    <div class="col-xs-8 offset-xs-2 card card-block bg-faded">
+        {form cleaningForm}
+            <div class="form-group row">
+                <label for="enclosure_id" class="col-xs-3 col-form-label">Výběh</label>
+                <div class="col-xs-9">
+                    {input enclosure_id class => "form-control"}
+                    <small id="enclosureHelp" class="col-xs-9 form-text text-muted">Vyberte výběh pro čištění.</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="cleaning_type_id" class="col-xs-3 col-form-label">Typ čištění</label>
+                <div class="col-xs-9">
+                    {input cleaning_type_id class => "form-control"}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="attendants_count" class="col-xs-3 col-form-label">Počet ošetřovatelů</label>
+                <div class="col-xs-9">
+                    {input attendants_count class => "form-control"}
+                    <small id="attendants_countHelp" class="col-xs-9 form-text text-muted">Počet ošetřovatelů potřebných pro čištění.</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="start" class="col-xs-3 col-form-label">Začátek</label>
+                <div class="col-xs-9">
+                    {input start class => "datetimepicker form-control"}
+                    <script type="text/javascript">
+                        $(function () {
+                            $('.datetimepicker').datetimepicker({
+                                sideBySide: true,
+                                locale: 'cs'
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="end" class="col-xs-3 col-form-label">Konec</label>
+                <div class="col-xs-9">
+                    {input end class => "datetimepicker2 form-control"}
+                    <script type="text/javascript">
+                        $(function () {
+                            $('.datetimepicker2').datetimepicker({
+                                sideBySide: true,
+                                locale: 'cs'
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="cleaners" class="col-xs-3 col-form-label">Ošetřovatelé</label>
+                <div class="col-xs-9">
+                    {input cleaners class => "form-control"}
+                    <small id="enclosureHelp" class="col-xs-9 form-text text-muted">Seznam ošetřovatelů pro čištění.</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="done" class="col-xs-3 col-form-label">Provedeno</label>
+                <div class="col-xs-9">
+                    {input done class => "form-control"}
+                </div>
+            </div>
+            <div class="form-group center-block">
+                {input save class => "col-xs-12 btn btn-primary"}
+            </div>
+        {/form}
+    </div>
+</div>

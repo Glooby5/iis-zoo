@@ -69,7 +69,7 @@ class UserEditFormFactory extends Nette\Application\UI\Control
         $form->addSelect('role', 'Role')
             ->addRule(Form::FILLED, "`%label` je povinná.")
             ->setItems([
-                User::REGISTERED => 'Zareggistrovaný',
+                User::REGISTERED => 'Zaregistrovaný',
                 User::ATTENDANT => 'Ošetřovatel',
                 User::ADMIN => 'Admin',
             ])
@@ -119,6 +119,7 @@ class UserEditFormFactory extends Nette\Application\UI\Control
     {
         $form['id']->setDefaultValue($user->getId());
         $form['email']->setDefaultValue($user->getEmail());
+        $form['title']->setDefaultValue($user->getTitle());
         $form['firstname']->setDefaultValue($user->getFirstname());
         $form['lastname']->setDefaultValue($user->getLastname());
         $form['personalNumber']->setDefaultValue($user->getPersonalNumber());

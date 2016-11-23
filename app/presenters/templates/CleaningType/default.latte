@@ -1,13 +1,25 @@
 {block content}
-<h1 n:block=title>Přehled typů čištění</h1>
-
-<table>
-    {foreach $cleaningTypes as $cleaningType}
-        <tr>
-            <td><a n:href="CleaningType:detail $cleaningType->getId()">{$cleaningType->getId()}</a></td>
-            <td>{$cleaningType->getName()}</td>
-        </tr>
-    {/foreach}
-</table>
-
-<a n:href="CleaningType:create">Vytvořit nový</a>
+<div class="container">
+    <h1 n:block="title" class="text-xs-center" >Přehled typů čištění</h1>
+    <a n:href="CleaningType:create" class="col-xs-2 offset-xs-8 btn btn-primary">Vytvořit nové</a>
+    <div class="col-xs-8 offset-xs-2 card bg-faded">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Název</th>
+                    <th>Pomůcky</th>
+                </tr>
+                </thead>
+                {foreach $cleaningTypes as $cleaningType}
+                    <tr>
+                        <th>{$cleaningType->getId()}</th>
+                        <td><a n:href="CleaningType:detail $cleaningType->getId()">{$cleaningType->getName()}</a></td>
+                        <td>{$cleaningType->getTools()|truncate:100}</td>
+                    </tr>
+                {/foreach}
+            </table>
+        </div>
+    </div>
+</div>
