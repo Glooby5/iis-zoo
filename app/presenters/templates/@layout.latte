@@ -5,15 +5,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-
-	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Sandbox</title>
-    <script src="{$basePath}/js/jquery-3.1.1.min.js"></script>
-    <link id="bsdp-css" href="{$basePath}/css/bootstrap-datepicker3.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{$basePath}/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <title>{ifset title}{include title|stripHtml} | {/ifset}IS ZOO FIT</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="{$basePath}/css/bootstrap.min.css">
+    <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <link rel="stylesheet" href="{$basePath}/css/style.css">
-	<meta name="viewport" content="width=device-width">
-	{block head}{/block}
+    <meta name="viewport" content="width=device-width">
+    {block head}{/block}
 </head>
 
 <body>
@@ -53,6 +52,9 @@
                     <a href="#" class="nav-link  dropdown-toggle" data-toggle="dropdown">{$user->getIdentity()->getLastname()}</a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" n:href="Profile:default">Váš profil</a>
+                        {if $user->isInRole('admin')}
+                            <a class="dropdown-item" n:href="User:default">Správa uživatelů</a>
+                        {/if}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" n:href="Sign:out">Odhlásit se</a>
                     </div>
@@ -64,17 +66,21 @@
             </ul>
         </div>
     </nav><!-- /.navbar -->
-    <div n:foreach="$flashes as $flash" class="alert alert-dismissible alert-{$flash->type} offset-xs-4 col-xs-4">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <strong>{$flash->message}</strong>
+    <div class="container">
+        <div n:foreach="$flashes as $flash" class="alert alert-dismissible alert-{$flash->type} offset-xs-4 col-xs-4">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <strong>{$flash->message}</strong>
+        </div>
     </div>
-
 	{include content}
 
 	{block scripts}
+        <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+        <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+        <script src="{$basePath}/js/bootstrap.min.js"></script>
         <script src="{$basePath}/js/bootstrap-datepicker.min.js"></script>
         <script src="{$basePath}/js/locales/bootstrap-datepicker.cs.min.js"></script>
-        <script src="{$basePath}/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
         <script src="{$basePath}/js/netteForms.min.js"></script>
         <script src="{$basePath}/js/main.js"></script>
 	{/block}

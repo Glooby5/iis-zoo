@@ -1,24 +1,23 @@
 {block content}
 <div class="container">
-    <h1 n:block="title" class="text-center" >Přehled typů výběhu</h1>
-    <a n:href="EnclosureType:create" class="col-xs-3 offset-xs-7 btn btn-primary">Vytvořit nový</a>
+    <h1 n:block="title" class="text-xs-center" >Přehled typů výběhu</h1>
+    <a n:href="EnclosureType:create" class="col-xs-2 offset-xs-8 btn btn-primary">Vytvořit nový</a>
     <div class="col-xs-8 offset-xs-2 card bg-faded">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Název</th>
-            </tr>
-            </thead>
-            {foreach $enclosureTypes as $enclosureType}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
                 <tr>
-                    <th>{$enclosureType->getId()}</th>
-                    <td><a n:href="EnclosureType:detail $enclosureType->getId()">{$enclosureType->getName()}</a></td>
+                    <th>#</th>
+                    <th>Název</th>
                 </tr>
-            {/foreach}
-        </table>
+                </thead>
+                {foreach $enclosureTypes as $enclosureType}
+                    <tr>
+                        <th>{$enclosureType->getId()}</th>
+                        <td><a n:href="EnclosureType:detail $enclosureType->getId()">{$enclosureType->getName()}</a></td>
+                    </tr>
+                {/foreach}
+            </table>
+        </div>
     </div>
 </div>
-
-
-

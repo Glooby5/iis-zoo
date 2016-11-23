@@ -1,16 +1,17 @@
 {block content}
 <div class="container">
     <div class="col-xs-8 offset-xs-2 block-center">
-        <h1 n:block="title" class="text-center" >Zadat úmrtí zvířete</h1>
+        <h1 n:block="title" class="text-xs-center" >Zadat úmrtí zvířete</h1>
         {form animalDeathForm class => "card card-block bg-faded"}
             <div class="form-group row">
                 <label for="dateOfDeath" class="col-xs-3 col-form-label">Datum a čas úmrtí</label>
                 <div class="col-xs-9">
-                    {input dateOfDeath class => "end-picker form-control"}
-                    <script>
-                        $(document).ready(function () {
-                            $('.end-picker').datepicker({
-                                language: "cs"
+                    {input dateOfDeath class => "datetimepicker form-control"}
+                    <script type="text/javascript">
+                        $(function () {
+                            $('.datetimepicker').datetimepicker({
+                                sideBySide: true,
+                                locale: 'cs'
                             });
                         });
                     </script>

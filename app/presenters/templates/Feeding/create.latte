@@ -1,6 +1,6 @@
 {block content}
 <div class="container">
-    <h1 n:block="title" class="text-center" >Zadat krmení</h1>
+    <h1 n:block="title" class="text-xs-center" >Zadat krmení</h1>
     <div class="col-xs-8 offset-xs-2 card card-block bg-faded">
         {form feedingForm}
             <div class="form-group row">
@@ -18,11 +18,12 @@
             <div class="form-group row">
                 <label for="start" class="col-xs-3 col-form-label">Začátek</label>
                 <div class="col-xs-9">
-                    {input start class => "start-picker form-control"}
-                    <script>
-                        $(document).ready(function () {
-                            $('.start-picker').datepicker({
-                                language: "cs"
+                    {input start class => "datetimepicker form-control"}
+                    <script type="text/javascript">
+                        $(function () {
+                            $('.datetimepicker').datetimepicker({
+                                sideBySide: true,
+                                locale: 'cs'
                             });
                         });
                     </script>
@@ -31,11 +32,12 @@
             <div class="form-group row">
                 <label for="end" class="col-xs-3 col-form-label">Konec</label>
                 <div class="col-xs-9">
-                    {input end class => "end-picker form-control"}
-                    <script>
-                        $(document).ready(function () {
-                            $('.end-picker').datepicker({
-                                language: "cs"
+                    {input end class => "datetimepicker2 form-control"}
+                    <script type="text/javascript">
+                        $(function () {
+                            $('.datetimepicker2').datetimepicker({
+                                sideBySide: true,
+                                locale: 'cs'
                             });
                         });
                     </script>

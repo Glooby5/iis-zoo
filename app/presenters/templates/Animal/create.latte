@@ -1,7 +1,7 @@
 {block content}
 <div class="container">
     <div class="col-xs-8 offset-xs-2 block-center">
-        <h1 n:block="title" class="text-center" >Vytvořit zvíře</h1>
+        <h1 n:block="title" class="text-xs-center" >Vytvořit zvíře</h1>
         {form animalForm class => "card card-block bg-faded"}
             <div class="form-group row">
                 <label for="name" class="col-xs-3 col-form-label">Jméno</label>
@@ -12,11 +12,12 @@
             <div class="form-group row">
                 <label for="birthday" class="col-xs-3 col-form-label">Datum narození</label>
                 <div class="col-xs-9">
-                    {input birthday class => "birthday-picker form-control"}
-                    <script>
-                        $(document).ready(function () {
-                            $('.birthday-picker').datepicker({
-                                language: "cs"
+                    {input birthday class => "datetimepicker form-control"}
+                    <script type="text/javascript">
+                        $(function () {
+                            $('.datetimepicker').datetimepicker({
+                                locale: 'cs',
+                                format: 'DD-MM-YYYY'
                             });
                         });
                     </script>
@@ -32,12 +33,6 @@
                 <label for="country" class="col-xs-3 col-form-label">Země původu</label>
                 <div class="col-xs-9">
                     {input country class => "form-control"}
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="mother_id" class="col-xs-3 col-form-label">Matka</label>
-                <div class="col-xs-9">
-                    {input mother_id class => "form-control"}
                 </div>
             </div>
             <div class="form-group row">
@@ -72,4 +67,3 @@
         {/form}
      </div>
 </div>
-
