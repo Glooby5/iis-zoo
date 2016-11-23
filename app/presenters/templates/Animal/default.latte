@@ -1,13 +1,26 @@
 {block content}
-<h1 n:block=title>Přehled zvířat</h1>
+<div class="container">
+    <h1 n:block="title" class="text-center" >Přehled zvířat</h1>
+    <a n:href="Animal:create" class="col-xs-2 offset-xs-8 btn btn-primary">Vytvořit nové</a>
+    <div class="col-xs-8 offset-xs-2 card bg-faded">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Jméno</th>
+                <th>Druh</th>
+                <th>Výběh</th>
+            </tr>
+            </thead>
+            {foreach $animals as $animal}
+                <tr>
+                    <th>{$animal->getId()}</th>
+                    <td><a n:href="Animal:detail $animal->getId()">{$animal->getName()}</a></td>
+                    <td>{$animal->getEnclosure()->getLabel()}</td>
+                    <td>{$animal->getName()}</td>
+                </tr>
+            {/foreach}
+        </table>
+    </div>
+</div>
 
-<table>
-    {foreach $animals as $animal}
-        <tr>
-            <td><a n:href="Animal:detail $animal->getId()">{$animal->getId()}</a></td>
-            <td>{$animal->getName()}</td>
-        </tr>
-    {/foreach}
-</table>
-
-<a n:href="Animal:create">Vytvořit nové</a>

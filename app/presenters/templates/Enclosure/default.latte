@@ -1,13 +1,25 @@
 {block content}
-<h1 n:block=title>Přehled výběhů</h1>
-
-<table>
-    {foreach $enclosures as $enclosure}
-        <tr>
-            <td><a n:href="Enclosure:detail $enclosure->getId()">{$enclosure->getId()}</a></td>
-            <td>{$enclosure->getLabel()}</td>
-        </tr>
-    {/foreach}
-</table>
-
-<a n:href="Enclosure:create">Vytvořit nový</a>
+<div class="container">
+    <h1 n:block="title" class="text-center" >Přehled výběhů</h1>
+    <a n:href="Enclosure:create" class="col-xs-3 offset-xs-7 btn btn-primary">Zadat nový</a>
+    <div class="col-xs-8 offset-xs-2 card bg-faded">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Název</th>
+                <th>Typ výběhu</th>
+                <th>Počet zvířat</th>
+            </tr>
+            </thead>
+            {foreach $enclosures as $enclosure}
+                <tr>
+                    <th>{$enclosure->getId()}</th>
+                    <td><a n:href="Enclosure:detail $enclosure->getId()">{$enclosure->getLabel()}</a></td>
+                    <td>{$enclosure->getEnclosureType()->getName()}</td>
+                    <td>{$enclosure->getAnimals()->Count()}</td>
+                </tr>
+            {/foreach}
+        </table>
+    </div>
+</div>

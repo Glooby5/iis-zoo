@@ -1,13 +1,31 @@
 {block content}
-<h1 n:block=title>Přehled krmení</h1>
-
-<table>
-    {foreach $feedings as $feeding}
-        <tr>
-            <td><a n:href="Feeding:detail $feeding->getId()">{$feeding->getId()}</a></td>
-            <td>{$feeding->getStart()|date:'%d.%m.%Y'}</td>
-        </tr>
-    {/foreach}
-</table>
-
-<a n:href="Feeding:create">Zadat nové</a>
+<div class="container">
+    <h1 n:block="title" class="text-center" >Přehled krmení</h1>
+    <a n:href="Feeding:create" class="col-xs-3 offset-xs-7 btn btn-primary">Zadat nové</a>
+    <div class="col-xs-8 offset-xs-2 card bg-faded">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Zvíře</th>
+                <th>Druh</th>
+                <th>Ošetřovatel</th>
+                <th>Krmivo</th>
+                <th>Množství</th>
+                <th>Datum provedení</th>
+            </tr>
+            </thead>
+            {foreach $feedings as $feeding}
+                <tr>
+                    <th>{$feeding->getId()}</th>
+                    <td><a n:href="Feeding:detail $feeding->getId()">{$feeding->getAnimal()->getName()}</a></td>
+                    <td>{$feeding->getAnimal()->getSpecies()->getName()}</td>
+                    <td>{$feeding->getKeeper()->getLastname()}</td>
+                    <td>{$feeding->getSpecies()}</td>
+                    <td>{$feeding->getAmount()}</td>
+                    <td>{$feeding->getStart()|date:'%d.%m.%Y %H:%M'}</td>
+                </tr>
+            {/foreach}
+        </table>
+    </div>
+</div>

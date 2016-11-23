@@ -1,4 +1,24 @@
 {block content}
-<h1 n:block=title>Zadat úmrtí</h1>
-
-{control animalDeathForm}
+<div class="container">
+    <div class="col-xs-8 offset-xs-2 block-center">
+        <h1 n:block="title" class="text-center" >Zadat úmrtí zvířete</h1>
+        {form animalDeathForm class => "card card-block bg-faded"}
+            <div class="form-group row">
+                <label for="dateOfDeath" class="col-xs-3 col-form-label">Datum a čas úmrtí</label>
+                <div class="col-xs-9">
+                    {input dateOfDeath class => "end-picker form-control"}
+                    <script>
+                        $(document).ready(function () {
+                            $('.end-picker').datepicker({
+                                language: "cs"
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="form-group center-block">
+                {input save class => "col-xs-12 btn btn-primary"}
+            </div>
+        {/form}
+    </div>
+</div>

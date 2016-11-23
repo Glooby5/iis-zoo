@@ -37,7 +37,7 @@ class SignInFormFactory
 		$form->addPassword('password', 'Password:')
 			->setRequired('Please enter your password.');
 
-		$form->addCheckbox('remember', 'Keep me signed in');
+		$form->addCheckbox('remember', 'Zapamatovat');
 
 		$form->addSubmit('send', 'Sign in');
 

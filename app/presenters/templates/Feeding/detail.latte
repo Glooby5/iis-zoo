@@ -1,42 +1,44 @@
 {block content}
-<h1 n:block=title>Detail krmení</h1>
 
-<table>
-    <tr>
-        <td>ID</td>
-        <td>{$feeding->getId()}</td>
-    </tr>
-    <tr>
-        <td>Start</td>
-        <td>{$feeding->getStart()|date:'%d.%m.%Y'}</td>
-    </tr>
-    <tr>
-        <td>Konec</td>
-        <td>{$feeding->getEnd()|date:'%d.%m.%Y'}</td>
-    </tr>
-    <tr>
-        <td>Krmivo</td>
-        <td>{$feeding->getSpecies()}</td>
-    </tr>
-    <tr>
-        <td>Množství</td>
-        <td>{$feeding->getAmount()}</td>
-    </tr>
-    <tr>
-        <td>Ošetřovatel</td>
-        <td>
-            <a n:href="User:detail $feeding->getKeeper()->getId()">{$feeding->getKeeper()->getFirstname()}</a>
-        </td>
-    </tr>
-    <tr>
-        <td>Zvíře</td>
-        <td>
-            <a n:href="Animal:detail $feeding->getAnimal()->getId()">{$feeding->getAnimal()->getName()}</a>
-        </td>
-    </tr>
-</table>
-
-
-<a n:href="Feeding:edit $feeding->getId()">Upravit</a>
-<a n:href="Feeding:delete $feeding->getId()">Odstranit</a>
+<div class="container">
+    <h1 n:block="title" class="text-center">Detail krmení</h1>
+    <div class="col-xs-8 offset-xs-2 card bg-faded">
+        <table class="table">
+            <tr>
+                <td>Zvíře</td>
+                <td>
+                    <a n:href="Animal:detail $feeding->getAnimal()->getId()">{$feeding->getAnimal()->getName()}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Ošetřovatel</td>
+                <td>
+                    <a n:href="User:detail $feeding->getKeeper()->getId()">{$feeding->getKeeper()->getLastname()}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Krmivo</td>
+                <td>{$feeding->getSpecies()}</td>
+            </tr>
+            <tr>
+                <td>Množství</td>
+                <td>{$feeding->getAmount()}</td>
+            </tr>
+            <tr>
+                <td>Start</td>
+                <td>{$feeding->getStart()|date:'%d.%m.%Y %H:%M'}</td>
+            </tr>
+            <tr>
+                <td>Konec</td>
+                <td>{$feeding->getEnd()|date:'%d.%m.%Y %H:%M'}</td>
+            </tr>
+            <tr>
+                <td>Provedeno</td>
+                <td>{$feeding->isDone() ? 'Ano' : 'Ne'}</td>
+            </tr>
+        </table>
+    </div>
+    <a n:href="Feeding:edit $feeding->getId()" class="col-xs-3 offset-xs-2 btn btn-primary">Upravit</a>
+    <a n:href="Feeding:delete $feeding->getId()" class="col-xs-3 offset-xs-2 btn btn-primary">Odstranit</a>
+</div>
 
