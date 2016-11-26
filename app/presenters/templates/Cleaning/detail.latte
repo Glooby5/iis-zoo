@@ -35,7 +35,13 @@
             {foreach $cleaning->getCleaners() as $cleaner}
                 <tr>
                     <td>Ošetřovatel</td>
-                    <td><a n:href="User:detail $cleaner->getId()">{$cleaner->getLastname()}</a></td>
+                    <td>
+                        {if $user->isInRole('admin')}
+                            <a n:href="User:detail $cleaner->getId()">{$cleaner->getLastname()}</a>
+                        {else}
+                            {$cleaner->getLastname()}
+                        {/if}
+                    </td>
                 </tr>
             {/foreach}
         </table>

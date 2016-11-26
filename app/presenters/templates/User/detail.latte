@@ -31,6 +31,6 @@
         </table>
     </div>
     {if $user->isInRole(\App\Entities\User::ADMIN) && $myUser->getRole() != \App\Entities\User::ADMIN}
-    <a n:href="User:edit $myUser->getId()" class="col-xs-8 offset-xs-2 btn btn-primary">Upravit uživatele</a>
+        <a n:href="User:edit $myUser->getId()" class="col-xs-8 offset-xs-2 btn btn-primary">Upravit uživatele</a>
     {/if}
 </div>

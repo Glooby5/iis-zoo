@@ -1,1 +1,64 @@
 {block content}
+
+<div class="container">
+    <h1 n:block="title" class="text-xs-center" >Přehled krmení</h1>
+    <a n:href="Feeding:create" class="col-xs-2 offset-xs-8 btn btn-primary">Zadat nové</a>
+    <div class="col-xs-8 offset-xs-2 card bg-faded">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Zvíře</th>
+                    <th>Druh</th>
+                    <th>Ošetřovatel</th>
+                    <th>Krmivo</th>
+                    <th>Množství</th>
+                    <th>Datum provedení</th>
+                </tr>
+                </thead>
+                {foreach $feedings as $feeding}
+                    {if $feeding->getKeeper()->getId() == $user->getId()}
+                        <tr>
+                            <th>{$feeding->getId()}</th>
+                            <td><a n:href="Feeding:detail $feeding->getId()">{$feeding->getAnimal()->getName()}</a></td>
+                            <td>{$feeding->getAnimal()->getSpecies()->getName()}</td>
+                            <td>{$feeding->getKeeper()->getLastname()}</td>
+                            <td>{$feeding->getSpecies()}</td>
+                            <td>{$feeding->getAmount()}</td>
+                            <td>{$feeding->getStart()|date:'%d.%m.%Y %H:%M'}</td>
+                        </tr>
+                    {/if}
+                {/foreach}
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h1 class="text-xs-center" >Přehled čištění</h1>
+    <a n:href="Cleaning:create" class="col-xs-2 offset-xs-8 btn btn-primary">Zadat nové</a>
+    <div class="col-xs-8 offset-xs-2 card bg-faded">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Výběh</th>
+                    <th>Typ čištění</th>
+                    <th>Datum provedení</th>
+                </tr>
+                </thead>
+                {foreach $cleanings as $cleaning}
+                    <tr>
+                        <th>{$cleaning->getId()}</th>
+                        <td><a n:href="Cleaning:detail $cleaning->getId()">{$cleaning->getEnclosure()->getLabel()}</a></td>
+                        <td>{$cleaning->getCleaningType()->getName()}</td>
+                        <td>{$cleaning->getStart()|date:'%d.%m.%Y'}</td>
+                    </tr>
+                {/foreach}
+            </table>
+        </div>
+    </div>
+</div>
+
+

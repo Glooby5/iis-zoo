@@ -42,19 +42,19 @@
                     <a href="#" class="nav-link  dropdown-toggle" data-toggle="dropdown">Čištění</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" n:href="Cleaning:default">Přehled čištění</a>
-                        <a class="dropdown-item" n:href="CleaningType:default">Typy číštění</a>
+                        <a class="dropdown-item" n:href="CleaningType:default">Typy čištění</a>
                     </div>
                 </li>
             </ul>
             <ul class="nav navbar-nav float-xs-right">
             {if $user->isLoggedIn()}
+                {if $user->isInRole('admin')}
+                    <li class="nav-item"><a class="nav-link" n:href="User:default">Uživatelé</a></li>
+                {/if}
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link  dropdown-toggle" data-toggle="dropdown">{$user->getIdentity()->getLastname()}</a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" n:href="Profile:default">Váš profil</a>
-                        {if $user->isInRole('admin')}
-                            <a class="dropdown-item" n:href="User:default">Správa uživatelů</a>
-                        {/if}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" n:href="Sign:out">Odhlásit se</a>
                     </div>
