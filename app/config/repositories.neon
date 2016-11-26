@@ -9,3 +9,4 @@ services:
 	- App\Repositories\CleaningRepository
 
 	- App\Repositories\SpeciesCertificateRepository
+	- App\Repositories\EnclosureTypeCertificateRepository
