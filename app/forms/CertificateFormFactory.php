@@ -31,7 +31,7 @@ class CertificateFormFactory extends Nette\Application\UI\Control
         $form = new Form;
 
         $form->addHidden('id');
-        $form->addText('name', 'Název')->setDefaultValue('Certifikát na práci s druhem');
+        $form->addText('name', 'Název')->setDefaultValue('Certifikát');
 
         $form->addText('start', 'Začátek platnosti')
             ->setType('datetime')

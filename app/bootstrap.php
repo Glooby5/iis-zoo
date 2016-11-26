@@ -8,8 +8,8 @@ $configurator->setDebugMode(TRUE); // enable for your remote IP
 $configurator->enableDebugger(__DIR__ . '/../log');
 
 $configurator->setTimeZone('Europe/Prague');
-//$configurator->setTempDirectory(__DIR__ . '/../temp');
-$configurator->setTempDirectory('/home/vagrant/temp');
+$configurator->setTempDirectory(__DIR__ . '/../temp');
+//$configurator->setTempDirectory('/home/vagrant/temp');
 
 $configurator->createRobotLoader()
 	->addDirectory(__DIR__)
