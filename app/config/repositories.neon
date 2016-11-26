@@ -7,3 +7,7 @@ services:
 	- App\Repositories\FeedingRepository
 	- App\Repositories\CleaningTypeRepository
 	- App\Repositories\CleaningRepository
+
+	- App\Repositories\SpeciesCertificateRepository
+	- App\Repositories\EnclosureTypeCertificateRepository
+	- App\Repositories\CleaningTypeCertificateRepository
