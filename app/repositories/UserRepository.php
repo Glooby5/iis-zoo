@@ -80,7 +80,7 @@ class UserRepository
         return $this->repository->findAll();
     }
 
-    public function getUserFeedingsInTime($userId, $start, $end)
+    public function getUserFeedingsInTime($userId, $start, $end, $editing = null)
     {
         $queryBuilder = $this->repository->createQueryBuilder()
             ->select('f')
@@ -96,10 +96,15 @@ class UserRepository
             ->setParameter(':start', $start)
             ->setParameter(':end', $end);
 
+        if ($editing) {
+            $queryBuilder->andWhere('f.id != :id')
+                ->setParameter(':id', $editing);
+        }
+
         return $queryBuilder->getQuery()->getArrayResult();
     }
 
-    public function getUserCleaningsInTime($userId, $start, $end)
+    public function getUserCleaningsInTime($userId, $start, $end, $editing = null)
     {
         $queryBuilder = $this->repository->createQueryBuilder()
             ->select('c')
@@ -116,13 +121,18 @@ class UserRepository
             ->setParameter(':start', $start)
             ->setParameter(':end', $end);
 
+        if ($editing) {
+            $queryBuilder->andWhere('c.id != :id')
+                ->setParameter(':id', $editing);
+        }
+
         return $queryBuilder->getQuery()->getArrayResult();
     }
 
-    public function hasUserFreeTime($userId, $start, $end)
+    public function hasUserFreeTime($userId, $start, $end, $editingFeeding = null, $editingCleaning = null)
     {
-        $feedings = count($this->getUserFeedingsInTime($userId, $start, $end));
-        $cleanings = count($this->getUserCleaningsInTime($userId, $start, $end));
+        $feedings = count($this->getUserFeedingsInTime($userId, $start, $end, $editingFeeding));
+        $cleanings = count($this->getUserCleaningsInTime($userId, $start, $end, $editingCleaning));
 
         return !$feedings && ! $cleanings;
     }
