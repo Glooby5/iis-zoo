@@ -22,11 +22,11 @@ class SpeciesCertificateRepository extends CertificateRepository
      */
     private $userRepository;
 
-    public function __construct(EntityManager $entityManager, SpeciesRepository $speciesRepository, UserRepository $userRepository)
+    public function __construct(EntityManager $entityManager, SpeciesRepository $enclosureTypeRepository, UserRepository $userRepository)
     {
         parent::__construct($entityManager);
         $this->repository = $entityManager->getRepository(SpeciesCertificate::class);
-        $this->speciesRepository = $speciesRepository;
+        $this->speciesRepository = $enclosureTypeRepository;
         $this->userRepository = $userRepository;
     }
 

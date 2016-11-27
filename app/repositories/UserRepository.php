@@ -110,8 +110,8 @@ class UserRepository
 
         $queryBuilder
             ->andwhere($queryBuilder->expr()->orX(
-                $queryBuilder->expr()->between('f.start', ':start', ':end'),
-                $queryBuilder->expr()->between('f.end', ':start', ':end')
+                $queryBuilder->expr()->between('c.start', ':start', ':end'),
+                $queryBuilder->expr()->between('c.end', ':start', ':end')
             ))
             ->setParameter(':start', $start)
             ->setParameter(':end', $end);

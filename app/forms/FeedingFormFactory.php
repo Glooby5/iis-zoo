@@ -99,9 +99,9 @@ class FeedingFormFactory extends Nette\Application\UI\Control
             return false;
         }
 
-        $otherActions = $this->userRepository->hasUserFreeTime($values->keeper_id, new DateTime($values->start), new DateTime($values->end));
+        $freeTime = $this->userRepository->hasUserFreeTime($values->keeper_id, new DateTime($values->start), new DateTime($values->end));
 
-        if ($otherActions) {
+        if (!$freeTime) {
             $form->addError("Ošetřovatel má v zadanou dobu naplánované jiné aktivity");
             return false;
         }
