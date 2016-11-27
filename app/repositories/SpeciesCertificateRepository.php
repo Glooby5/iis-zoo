@@ -64,4 +64,21 @@ class SpeciesCertificateRepository extends CertificateRepository
 
         return $speciesCertificate;
     }
+
+    public function canUserFeedSpecies($userId, $speciesId, $date)
+    {
+        $queryBuilder = $this->repository->createQueryBuilder()
+            ->select('c')
+            ->from(SpeciesCertificate::class, 'c')
+            ->where('c.user = :user')
+                ->setParameter(':user', $userId)
+            ->andWhere('c.species = :species')
+                ->setParameter(':species', $speciesId)
+            ->andWhere('c.start < :start')
+                ->setParameter(':start', $date)
+            ->andWhere('c.end > :end')
+                ->setParameter(':end', $date);
+
+        return $queryBuilder->getQuery()->getArrayResult();
+    }
 }
