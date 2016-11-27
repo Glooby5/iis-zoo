@@ -4,9 +4,11 @@ namespace App\Forms;
 
 use App\Entities\Feeding;
 use App\Repositories\AnimalRepository;
+use App\Repositories\SpeciesCertificateRepository;
 use App\Repositories\UserRepository;
 use Nette;
 use Nette\Application\UI\Form;
+use Nette\Utils\DateTime;
 
 class FeedingFormFactory extends Nette\Application\UI\Control
 {
@@ -27,11 +29,17 @@ class FeedingFormFactory extends Nette\Application\UI\Control
      */
     private $userRepository;
 
-    public function __construct(FormFactory $factory, AnimalRepository $animalRepository, UserRepository $userRepository)
+    /**
+     * @var SpeciesCertificateRepository
+     */
+    private $speciesCertificateRepository;
+
+    public function __construct(FormFactory $factory, AnimalRepository $animalRepository, UserRepository $userRepository, SpeciesCertificateRepository $speciesCertificateRepository)
     {
         $this->factory = $factory;
         $this->animalRepository = $animalRepository;
         $this->userRepository = $userRepository;
+        $this->speciesCertificateRepository = $speciesCertificateRepository;
     }
 
     /**
@@ -76,7 +84,29 @@ class FeedingFormFactory extends Nette\Application\UI\Control
             $this->setDefaults($feeding, $form);
         }
 
+        $form->onValidate[] = [$this, 'validateCertificates'];
+
         return $form;
+    }
+
+    public function validateCertificates($form, $values)
+    {
+        $animal = $this->animalRepository->find($values->animal_id);
+        $certificates = $this->speciesCertificateRepository->canUserFeedSpecies($values->keeper_id, $animal->getSpecies()->getId(), new DateTime($values->start));
+
+        if (!$certificates) {
+            $form->addError("Ošetřovatel nemá certifikát umožňující krmení tohoto druhu");
+            return false;
+        }
+
+        $freeTime = $this->userRepository->hasUserFreeTime($values->keeper_id, new DateTime($values->start), new DateTime($values->end), $values->id, NULL);
+
+        if (!$freeTime) {
+            $form->addError("Ošetřovatel má v zadanou dobu naplánované jiné aktivity");
+            return false;
+        }
+
+        return true;
     }
 
     /**

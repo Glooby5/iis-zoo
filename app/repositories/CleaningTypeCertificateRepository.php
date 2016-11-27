@@ -24,11 +24,11 @@ class CleaningTypeCertificateRepository extends CertificateRepository
      */
     private $userRepository;
 
-    public function __construct(EntityManager $entityManager, CleaningTypeRepository $speciesRepository, UserRepository $userRepository)
+    public function __construct(EntityManager $entityManager, CleaningTypeRepository $enclosureTypeRepository, UserRepository $userRepository)
     {
         parent::__construct($entityManager);
         $this->repository = $entityManager->getRepository(CleaningTypeCertificate::class);
-        $this->cleaningTypeRepository = $speciesRepository;
+        $this->cleaningTypeRepository = $enclosureTypeRepository;
         $this->userRepository = $userRepository;
     }
 
@@ -65,5 +65,22 @@ class CleaningTypeCertificateRepository extends CertificateRepository
         $this->entityManager->flush();
 
         return $speciesCertificate;
+    }
+
+    public function canUserDoCleaningType($userId, $cleaningTypeId, $date)
+    {
+        $queryBuilder = $this->repository->createQueryBuilder()
+            ->select('c')
+            ->from(CleaningTypeCertificate::class, 'c')
+            ->where('c.user = :user')
+            ->setParameter(':user', $userId)
+            ->andWhere('c.cleaningType = :cleaningType')
+            ->setParameter(':cleaningType', $cleaningTypeId)
+            ->andWhere('c.start < :start')
+            ->setParameter(':start', $date)
+            ->andWhere('c.end > :end')
+            ->setParameter(':end', $date);
+
+        return count($queryBuilder->getQuery()->getArrayResult());
     }
 }

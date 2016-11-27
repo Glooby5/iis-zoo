@@ -16,18 +16,18 @@ class EnclosureTypeCertificateRepository extends CertificateRepository
     /**
      * @var EnclosureTypeRepository
      */
-    private $speciesRepository;
+    private $enclosureTypeRepository;
 
     /**
      * @var UserRepository
      */
     private $userRepository;
 
-    public function __construct(EntityManager $entityManager, EnclosureTypeRepository $speciesRepository, UserRepository $userRepository)
+    public function __construct(EntityManager $entityManager, EnclosureTypeRepository $enclosureTypeRepository, UserRepository $userRepository)
     {
         parent::__construct($entityManager);
         $this->repository = $entityManager->getRepository(EnclosureTypeCertificate::class);
-        $this->speciesRepository = $speciesRepository;
+        $this->enclosureTypeRepository = $enclosureTypeRepository;
         $this->userRepository = $userRepository;
     }
 
@@ -47,7 +47,7 @@ class EnclosureTypeCertificateRepository extends CertificateRepository
             $speciesCertificate = new EnclosureTypeCertificate();
         }
 
-        $speciesCertificate->setEnclosureType($this->speciesRepository->find($values->enclosure_type_id));
+        $speciesCertificate->setEnclosureType($this->enclosureTypeRepository->find($values->enclosure_type_id));
         $speciesCertificate->setUser($this->userRepository->find($values->user_id));
         $speciesCertificate->setName($values->name);
 
@@ -64,5 +64,22 @@ class EnclosureTypeCertificateRepository extends CertificateRepository
         $this->entityManager->flush();
 
         return $speciesCertificate;
+    }
+
+    public function canUserEnclosureType($userId, $enclosureTypeId, $date)
+    {
+        $queryBuilder = $this->repository->createQueryBuilder()
+            ->select('c')
+            ->from(EnclosureTypeCertificate::class, 'c')
+            ->where('c.user = :user')
+            ->setParameter(':user', $userId)
+            ->andWhere('c.enclosureType = :enclosureType')
+            ->setParameter(':enclosureType', $enclosureTypeId)
+            ->andWhere('c.start < :start')
+            ->setParameter(':start', $date)
+            ->andWhere('c.end > :end')
+            ->setParameter(':end', $date);
+
+        return count($queryBuilder->getQuery()->getArrayResult());
     }
 }

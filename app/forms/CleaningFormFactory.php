@@ -4,11 +4,14 @@ namespace App\Forms;
 
 use App\Entities\Cleaning;
 use App\Entities\User;
+use App\Repositories\CleaningTypeCertificateRepository;
 use App\Repositories\CleaningTypeRepository;
 use App\Repositories\EnclosureRepository;
+use App\Repositories\EnclosureTypeCertificateRepository;
 use App\Repositories\UserRepository;
 use Nette;
 use Nette\Application\UI\Form;
+use Nette\Utils\DateTime;
 
 
 class CleaningFormFactory extends Nette\Application\UI\Control
@@ -35,18 +38,32 @@ class CleaningFormFactory extends Nette\Application\UI\Control
      */
     private $userRepository;
 
+    /**
+     * @var CleaningTypeCertificateRepository
+     */
+    private $cleaningTypeCertificateRepository;
+
+    /**
+     * @var EnclosureTypeCertificateRepository
+     */
+    private $enclosureTypeCertificateRepository;
+
     public function __construct
     (
         FormFactory $factory,
         CleaningTypeRepository $cleaningTypeRepository,
         EnclosureRepository $enclosureRepository,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        CleaningTypeCertificateRepository $cleaningTypeCertificateRepository,
+        EnclosureTypeCertificateRepository $enclosureTypeCertificateRepository
     )
     {
         $this->factory = $factory;
         $this->cleaningTypeRepository = $cleaningTypeRepository;
         $this->enclosureRepository = $enclosureRepository;
         $this->userRepository = $userRepository;
+        $this->cleaningTypeCertificateRepository = $cleaningTypeCertificateRepository;
+        $this->enclosureTypeCertificateRepository = $enclosureTypeCertificateRepository;
     }
 
     /**
@@ -92,7 +109,39 @@ class CleaningFormFactory extends Nette\Application\UI\Control
             $this->setDefaults($cleaning, $form);
         }
 
+        $form->onValidate[] = [$this, 'validateCertificates'];
+
         return $form;
+    }
+
+    public function validateCertificates(Form $form, $values)
+    {
+        $enclosure = $this->enclosureRepository->find($values->enclosure_id);
+
+        foreach ($values->cleaners as $cleaner) {
+            $certificates = $this->cleaningTypeCertificateRepository->canUserDoCleaningType($cleaner, $values->cleaning_type_id, new DateTime($values->start));
+
+            if (!$certificates) {
+                $form->addError("Ošetřovatel nemá certifikát umožňující tento typ čištění");
+                return false;
+            }
+
+            $certificates = $this->enclosureTypeCertificateRepository->canUserEnclosureType($cleaner, $enclosure->getEnclosureType()->getId(), new DateTime($values->start));
+
+            if (!$certificates) {
+                $form->addError("Ošetřovatel nemá certifikát umožňující čistit zadaný typ výběhu");
+                return false;
+            }
+
+            $freeTime = $this->userRepository->hasUserFreeTime($cleaner, new DateTime($values->start), new DateTime($values->end), null, $values->id);
+
+            if (!$freeTime) {
+                $form->addError("Ošetřovatel má v zadanou dobu naplánované jiné aktivity");
+                return false;
+            }
+        }
+
+        return true;
     }
 
 

@@ -22,11 +22,11 @@ class SpeciesCertificateRepository extends CertificateRepository
      */
     private $userRepository;
 
-    public function __construct(EntityManager $entityManager, SpeciesRepository $speciesRepository, UserRepository $userRepository)
+    public function __construct(EntityManager $entityManager, SpeciesRepository $enclosureTypeRepository, UserRepository $userRepository)
     {
         parent::__construct($entityManager);
         $this->repository = $entityManager->getRepository(SpeciesCertificate::class);
-        $this->speciesRepository = $speciesRepository;
+        $this->speciesRepository = $enclosureTypeRepository;
         $this->userRepository = $userRepository;
     }
 
@@ -63,5 +63,22 @@ class SpeciesCertificateRepository extends CertificateRepository
         $this->entityManager->flush();
 
         return $speciesCertificate;
+    }
+
+    public function canUserFeedSpecies($userId, $speciesId, $date)
+    {
+        $queryBuilder = $this->repository->createQueryBuilder()
+            ->select('c')
+            ->from(SpeciesCertificate::class, 'c')
+            ->where('c.user = :user')
+                ->setParameter(':user', $userId)
+            ->andWhere('c.species = :species')
+                ->setParameter(':species', $speciesId)
+            ->andWhere('c.start < :start')
+                ->setParameter(':start', $date)
+            ->andWhere('c.end > :end')
+                ->setParameter(':end', $date);
+
+        return $queryBuilder->getQuery()->getArrayResult();
     }
 }
