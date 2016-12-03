@@ -1,5 +1,61 @@
 {block content}
 <div class="container">
-    <h1 n:block="title" class="text-xs-center" >Vytvořit nový certifikát pro typ čištění</h1>
-    {control certificateForm}
+    <h1 n:block="title" class="text-xs-center" >Vytvořit certifikát pro čištění</h1>
+    <div class="col-xs-8 offset-xs-2 card card-block bg-faded">
+        {form certificateForm}
+            {include "../error.latte" form => $form}
+            <div class="form-group row">
+                <label for="name" class="col-xs-3 col-form-label">Název</label>
+                <div class="col-xs-9">
+                    {input name class => "form-control"}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="user_id" class="col-xs-3 col-form-label">Uživatel</label>
+                <div class="col-xs-9">
+                    {input user_id class => "start-picker form-control required"}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="cleaning_type_id" class="col-xs-3 col-form-label">Typ čištění</label>
+                <div class="col-xs-9">
+                    {input cleaning_type_id class => "form-control required"}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="start" class="col-xs-3 col-form-label">Začátek</label>
+                <div class="col-xs-9">
+                    {input start class => "datetimepicker form-control required"}
+                    <script type="text/javascript">
+                        $(function () {
+                            $('.datetimepicker').datetimepicker({
+                                format: 'DD-MM-YYYY',
+                                sideBySide: true,
+                                locale: 'cs'
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="end" class="col-xs-3 col-form-label">Konec</label>
+                <div class="col-xs-9">
+                    {input end class => "datetimepicker2 form-control required"}
+                    <script type="text/javascript">
+                        $(function () {
+                            $('.datetimepicker2').datetimepicker({
+                                format: 'DD-MM-YYYY',
+                                sideBySide: true,
+                                locale: 'cs'
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+
+            <div class="form-group center-block">
+                {input save class => "col-xs-12 btn btn-primary"}
+            </div>
+        {/form}
+    </div>
 </div>

@@ -24,10 +24,10 @@ class CleaningTypeCertificate extends Certificate
     }
 
     /**
-     * @param CleaningType $enclosureType
+     * @param CleaningType $cleaningType
      */
-    public function setCleaningType(CleaningType $enclosureType)
+    public function setCleaningType(CleaningType $cleaningType)
     {
-        $this->cleaningType = $enclosureType;
+        $this->cleaningType = $cleaningType;
     }
 }

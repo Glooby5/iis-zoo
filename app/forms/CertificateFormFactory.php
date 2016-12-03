@@ -65,11 +65,11 @@ class CertificateFormFactory extends Nette\Application\UI\Control
         $form['user_id']->setDefaultValue($certificate->getUser()->getId());
 
         if ($certificate->getStart()) {
-            $form['start']->setDefaultValue($certificate->getStart()->format('Y-m-d H:i:s'));
+            $form['start']->setDefaultValue($certificate->getStart()->format('d-m-Y'));
         }
 
         if ($certificate->getEnd()) {
-            $form['end']->setDefaultValue($certificate->getEnd()->format('Y-m-d H:i:s'));
+            $form['end']->setDefaultValue($certificate->getEnd()->format('d-m-Y'));
         }
     }
 }
