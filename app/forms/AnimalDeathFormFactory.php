@@ -40,6 +40,6 @@ class AnimalDeathFormFactory extends Nette\Application\UI\Control
     private function setDefaults(Animal $animal, Form $form)
     {
         $form['id']->setDefaultValue($animal->getId());
-        $form['dateOfDeath']->setDefaultValue($animal->getDateOfDeath() ?  $animal->getDateOfDeath()->format('Y-m-d') : NULL);
+        $form['dateOfDeath']->setDefaultValue($animal->getDateOfDeath() ?  $animal->getDateOfDeath()->format('d-m-Y') : NULL);
     }
 }

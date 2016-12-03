@@ -59,7 +59,7 @@ class FeedingPresenter extends BasePresenter
         if ($species) {
             $this->feedingRepository->getEntityManager()->remove($species);
             $this->feedingRepository->getEntityManager()->flush();
-            $this->flashMessage('Krmivo bylo úspěšně odstraněno');
+            $this->flashMessage('Naplánované krmení bylo úspěšně odstraněno');
         }
 
         $this->redirect('Feeding:');

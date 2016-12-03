@@ -42,19 +42,19 @@
                     <a href="#" class="nav-link  dropdown-toggle" data-toggle="dropdown">Čištění</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" n:href="Cleaning:default">Přehled čištění</a>
-                        <a class="dropdown-item" n:href="CleaningType:default">Typy číštění</a>
+                        <a class="dropdown-item" n:href="CleaningType:default">Typy čištění</a>
                     </div>
                 </li>
             </ul>
             <ul class="nav navbar-nav float-xs-right">
             {if $user->isLoggedIn()}
+                {if $user->isInRole('admin')}
+                    <li class="nav-item"><a class="nav-link" n:href="User:default">Uživatelé</a></li>
+                {/if}
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link  dropdown-toggle" data-toggle="dropdown">{$user->getIdentity()->getLastname()}</a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" n:href="Profile:default">Váš profil</a>
-                        {if $user->isInRole('admin')}
-                            <a class="dropdown-item" n:href="User:default">Správa uživatelů</a>
-                        {/if}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" n:href="Sign:out">Odhlásit se</a>
                     </div>
@@ -66,21 +66,22 @@
             </ul>
         </div>
     </nav><!-- /.navbar -->
+
     <div class="container">
         <div n:foreach="$flashes as $flash" class="alert alert-dismissible alert-{$flash->type} offset-xs-4 col-xs-4">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
             <strong>{$flash->message}</strong>
         </div>
     </div>
+
 	{include content}
 
 	{block scripts}
-        <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-        <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+        <script src="{$basePath}/js//moment-with-locales.js"></script>
         <script src="{$basePath}/js/bootstrap.min.js"></script>
         <script src="{$basePath}/js/bootstrap-datepicker.min.js"></script>
         <script src="{$basePath}/js/locales/bootstrap-datepicker.cs.min.js"></script>
+        <script src="{$basePath}/js/bootstrap-datetimepicker.js"></script>
         <script src="{$basePath}/js/netteForms.min.js"></script>
         <script src="{$basePath}/js/main.js"></script>
 	{/block}

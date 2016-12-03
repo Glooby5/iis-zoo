@@ -7,27 +7,27 @@
             <div class="form-group row">
                 <label for="enclosure_id" class="col-xs-3 col-form-label">Výběh</label>
                 <div class="col-xs-9">
-                    {input enclosure_id class => "form-control"}
+                    {input enclosure_id class => "form-control required"}
                     <small id="enclosureHelp" class="col-xs-9 form-text text-muted">Vyberte výběh pro čištění.</small>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="cleaning_type_id" class="col-xs-3 col-form-label">Typ čištění</label>
                 <div class="col-xs-9">
-                    {input cleaning_type_id class => "form-control"}
+                    {input cleaning_type_id class => "form-control required"}
                 </div>
             </div>
             <div class="form-group row">
                 <label for="attendants_count" class="col-xs-3 col-form-label">Počet ošetřovatelů</label>
                 <div class="col-xs-9">
-                    {input attendants_count class => "form-control"}
+                    {input attendants_count class => "form-control required"}
                     <small id="enclosureHelp" class="col-xs-9 form-text text-muted">Počet ošetřovatelů potřebných pro čištění.</small>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="start" class="col-xs-3 col-form-label">Začátek</label>
                 <div class="col-xs-9">
-                    {input start class => "datetimepicker form-control"}
+                    {input start class => "datetimepicker form-control required"}
                     <script type="text/javascript">
                         $(function () {
                             $('.datetimepicker').datetimepicker({
@@ -41,7 +41,7 @@
             <div class="form-group row">
                 <label for="end" class="col-xs-3 col-form-label">Konec</label>
                 <div class="col-xs-9">
-                    {input end class => "datetimepicker2 form-control"}
+                    {input end class => "datetimepicker2 form-control required"}
                     <script type="text/javascript">
                         $(function () {
                             $('.datetimepicker2').datetimepicker({

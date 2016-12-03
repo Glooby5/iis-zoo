@@ -47,8 +47,8 @@ class SignUpFormFactory
 			->addRule($form::EMAIL);
 
 		$form->addPassword('password', 'Heslo:')
-			->setOption('description', sprintf('at least %d characters', self::PASSWORD_MIN_LENGTH))
-			->setRequired('Please create a password.')
+			->setOption('description', sprintf('Heslo musí mít minimálně %d znaků', self::PASSWORD_MIN_LENGTH))
+            ->setRequired('Zadejte heslo')
 			->addRule($form::MIN_LENGTH, NULL, self::PASSWORD_MIN_LENGTH);
 
         $form->addPassword('passwordCheck', 'Heslo znovu:')
@@ -67,7 +67,7 @@ class SignUpFormFactory
         try {
             $this->userManager->add($form->getValues());
         } catch (Model\DuplicateNameException $e) {
-            $form->addError('Username is already taken.');
+            $form->addError('Uživatelský e-mail byl již použit.');
         }
 	}
 

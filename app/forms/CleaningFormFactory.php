@@ -79,12 +79,12 @@ class CleaningFormFactory extends Nette\Application\UI\Control
         $form->addSelect('enclosure_id', 'Výběh')
             ->setItems($this->enclosureRepository->findPairs())
             ->setPrompt('- vyberte -')
-            ->setRequired();
+            ->setRequired('Vyberte prosím výběh pro čištění');
 
         $form->addSelect('cleaning_type_id', 'Typ čištění')
             ->setItems($this->cleaningTypeRepository->findPairs())
             ->setPrompt('- vyberte -')
-            ->setRequired();
+            ->setRequired('Vyberte prosím typ čištění');
 
         $form->addText('attendants_count', 'Počet ošetřovatelů')
             ->setType('number')
@@ -156,11 +156,11 @@ class CleaningFormFactory extends Nette\Application\UI\Control
         $form['done']->setDefaultValue($cleaning->isDone());
 
         if ($cleaning->getStart()) {
-            $form['start']->setDefaultValue($cleaning->getStart()->format('Y-m-d H:i:s'));
+            $form['start']->setDefaultValue($cleaning->getStart()->format('d-m-Y H:i:s'));
         }
 
         if ($cleaning->getEnd()) {
-            $form['end']->setDefaultValue($cleaning->getEnd()->format('Y-m-d H:i:s'));
+            $form['end']->setDefaultValue($cleaning->getEnd()->format('d-m-Y H:i:s'));
         }
 
         if ($cleaning->getEnclosure()) {

@@ -18,7 +18,7 @@
                         <th>{$cleaning->getId()}</th>
                         <td><a n:href="Cleaning:detail $cleaning->getId()">{$cleaning->getEnclosure()->getLabel()}</a></td>
                         <td>{$cleaning->getCleaningType()->getName()}</td>
-                        <td>{$cleaning->getStart()|date:'%d.%m.%Y'}</td>
+                        <td>{$cleaning->getStart()|date:'%d.%m.%Y %H:%M'}</td>
                     </tr>
                 {/foreach}
             </table>

@@ -10,11 +10,11 @@
             </tr>
             <tr>
                 <td>Start</td>
-                <td>{$cleaning->getStart()|date:'%d.%m.%Y'}</td>
+                <td>{$cleaning->getStart()|date:'%d.%m.%Y %H:%M'}</td>
             </tr>
             <tr>
                 <td>Konec</td>
-                <td>{$cleaning->getEnd()|date:'%d.%m.%Y'}</td>
+                <td>{$cleaning->getEnd()|date:'%d.%m.%Y %H:%M'}</td>
             </tr>
             <tr>
                 <td>Počet ošetřovatelů</td>
@@ -35,7 +35,13 @@
             {foreach $cleaning->getCleaners() as $cleaner}
                 <tr>
                     <td>Ošetřovatel</td>
-                    <td><a n:href="User:detail $cleaner->getId()">{$cleaner->getLastname()}</a></td>
+                    <td>
+                        {if $user->isInRole('admin')}
+                            <a n:href="User:detail $cleaner->getId()">{$cleaner->getLastname()}</a>
+                        {else}
+                            {$cleaner->getLastname()}
+                        {/if}
+                    </td>
                 </tr>
             {/foreach}
         </table>

@@ -46,7 +46,7 @@ class SpeciesFormFactory extends Nette\Application\UI\Control
         $form->addText('occurrence', 'Výskyt')
         ;
 
-        $form->addSubmit('save', 'Odeslat');
+        $form->addSubmit('save', 'Uložit');
 
         if ($species)
             $this->setDefaults($species, $form);
