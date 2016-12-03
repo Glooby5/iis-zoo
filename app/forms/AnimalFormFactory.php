@@ -60,7 +60,7 @@ class AnimalFormFactory extends Nette\Application\UI\Control
         $form->addSelect('species_id', 'Druh')
             ->setPrompt('- vyberte -')
             ->setItems($this->speciesRepository->findPairs())
-            ->setRequired('')
+            ->setRequired('Vyberte druh zvířete.')
         ;
         $form->addSelect('enclosure_id', 'Výběh')
             ->setPrompt('- vyberte -')
