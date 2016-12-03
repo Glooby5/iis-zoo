@@ -60,12 +60,11 @@ class AnimalFormFactory extends Nette\Application\UI\Control
         $form->addSelect('species_id', 'Druh')
             ->setPrompt('- vyberte -')
             ->setItems($this->speciesRepository->findPairs())
-            ->setRequired()
+            ->setRequired('')
         ;
         $form->addSelect('enclosure_id', 'Výběh')
             ->setPrompt('- vyberte -')
             ->setItems($this->enclosureRepository->findPairs())
-            ->setRequired()
         ;
         $form->addText('name', 'Jméno')
             ->addRule(Form::FILLED, "`%label` je povinné.")
@@ -73,7 +72,6 @@ class AnimalFormFactory extends Nette\Application\UI\Control
         $form->addSelect('sex', 'Pohlaví')
             ->setItems([Animal::MALE => 'samec', Animal::FEMALE => 'samice'])
             ->addRule(Form::FILLED, "`%label` je povinné.")
-            ->setRequired()
         ;
         $form->addText('birthday', 'Datum narození')
             ->setType('datetime')
@@ -109,7 +107,7 @@ class AnimalFormFactory extends Nette\Application\UI\Control
         $form['enclosure_id']->setDefaultValue($animal->getEnclosure()->getId());
         $form['name']->setDefaultValue($animal->getName());
         $form['sex']->setDefaultValue($animal->getSex());
-        $form['birthday']->setDefaultValue($animal->getBirthday() ?  $animal->getBirthday()->format('Y-m-d') : NULL);
+        $form['birthday']->setDefaultValue($animal->getBirthday() ?  $animal->getBirthday()->format('d-m-Y') : NULL);
         $form['country']->setDefaultValue($animal->getCountry());
 
         if ($animal->getMother()) {

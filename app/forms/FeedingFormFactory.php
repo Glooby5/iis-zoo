@@ -55,12 +55,12 @@ class FeedingFormFactory extends Nette\Application\UI\Control
         $form->addSelect('keeper_id', 'Ošetřovatel')
             ->setItems($this->userRepository->findPairs())
             ->setPrompt('- vyberte -')
-            ->setRequired();
+            ->setRequired('Vyberte prosím ošetřovatele');
 
         $form->addSelect('animal_id', 'Zvíře')
             ->setItems($this->animalRepository->findPairs())
             ->setPrompt('- vyberte -')
-            ->setRequired();
+            ->setRequired('Vyberte prosím zvíře');
 
         $form->addText('start', 'Začátek')
             ->setType('datetime')
@@ -123,11 +123,11 @@ class FeedingFormFactory extends Nette\Application\UI\Control
         $form['done']->setDefaultValue($feeding->isDone());
 
         if ($feeding->getStart()) {
-            $form['start']->setDefaultValue($feeding->getStart()->format('Y-m-d H:i:s'));
+            $form['start']->setDefaultValue($feeding->getStart()->format('d-m-Y H:i:s'));
         }
 
         if ($feeding->getEnd()) {
-            $form['end']->setDefaultValue($feeding->getEnd()->format('Y-m-d H:i:s'));
+            $form['end']->setDefaultValue($feeding->getEnd()->format('d-m-Y H:i:s'));
         }
     }
 }

@@ -123,7 +123,7 @@ class UserEditFormFactory extends Nette\Application\UI\Control
         $form['firstname']->setDefaultValue($user->getFirstname());
         $form['lastname']->setDefaultValue($user->getLastname());
         $form['personalNumber']->setDefaultValue($user->getPersonalNumber());
-        $form['birthday']->setDefaultValue($user->getBirthday() ?  $user->getBirthday()->format('Y-m-d') : NULL);
+        $form['birthday']->setDefaultValue($user->getBirthday() ?  $user->getBirthday()->format('d-m-Y') : NULL);
         $form['role']->setDefaultValue($user->getRole());
     }
 }

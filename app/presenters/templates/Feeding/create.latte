@@ -9,22 +9,24 @@
             <div class="form-group row">
                 <label for="keeper_id" class="col-xs-3 col-form-label">Ošetřovatel</label>
                 <div class="col-xs-9">
-                    {input keeper_id class => "form-control"}
+                    {input keeper_id class => "form-control required"}
                 </div>
             </div>
             <div class="form-group row">
                 <label for="animal_id" class="col-xs-3 col-form-label">Zvíře</label>
                 <div class="col-xs-9">
-                    {input animal_id class => "start-picker form-control"}
+                    {input animal_id class => "start-picker form-control required"}
                 </div>
             </div>
             <div class="form-group row">
                 <label for="start" class="col-xs-3 col-form-label">Začátek</label>
                 <div class="col-xs-9">
-                    {input start class => "datetimepicker form-control"}
+                    {input start class => "datetimepicker form-control required"}
                     <script type="text/javascript">
                         $(function () {
+                            var dateNow = new Date();
                             $('.datetimepicker').datetimepicker({
+                                defaultDate: dateNow,
                                 sideBySide: true,
                                 locale: 'cs'
                             });
@@ -35,10 +37,12 @@
             <div class="form-group row">
                 <label for="end" class="col-xs-3 col-form-label">Konec</label>
                 <div class="col-xs-9">
-                    {input end class => "datetimepicker2 form-control"}
+                    {input end class => "datetimepicker2 form-control required"}
                     <script type="text/javascript">
                         $(function () {
+                            var dateNow = new Date();
                             $('.datetimepicker2').datetimepicker({
+                                defaultDate: dateNow,
                                 sideBySide: true,
                                 locale: 'cs'
                             });
@@ -49,13 +53,13 @@
             <div class="form-group row">
                 <label for="species" class="col-xs-3 col-form-label">Krmivo</label>
                 <div class="col-xs-9">
-                    {input species class => "form-control"}
+                    {input species class => "form-control required"}
                 </div>
             </div>
             <div class="form-group row">
                 <label for="amount" class="col-xs-3 col-form-label">Množství</label>
                 <div class="col-xs-9">
-                    {input amount class => "form-control"}
+                    {input amount class => "form-control required"}
                 </div>
             </div>
             <div class="form-group row">

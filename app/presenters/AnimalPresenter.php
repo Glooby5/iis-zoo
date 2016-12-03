@@ -105,7 +105,7 @@ class AnimalPresenter extends BasePresenter
 
         $form->onSuccess[] = function (Nette\Application\UI\Form $form, $values){
             $enclosure = $this->animalRepository->saveDeathFormData($values);
-            $this->flashMessage('Zvíře umřelo');
+            $this->flashMessage('Zvíře úspěšně umřelo');
             $this->redirect('Animal:detail', $enclosure->getId());
         };
 

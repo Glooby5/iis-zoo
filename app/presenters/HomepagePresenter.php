@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use Nette;
 use App\Model;
+use Nette\Utils\DateTime;
 use App\Repositories\FeedingRepository;
 use App\Repositories\CleaningRepository;
 
@@ -18,7 +19,6 @@ class HomepagePresenter extends BasePresenter
     public function startup()
     {
         parent::startup();
-
         if ( ! $this->user->isLoggedIn()) {
             $this->redirect(0,'Sign:in');
         }
@@ -26,6 +26,7 @@ class HomepagePresenter extends BasePresenter
 
 	public function renderDefault()
 	{
+	    $this->template->today = new DateTime();
         $this->template->feedings = $this->feedingRepository->findAll();
         $this->template->cleanings = $this->cleaningRepository->findAll();
 	}
