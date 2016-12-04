@@ -59,9 +59,10 @@ class CertificateFormFactory extends Nette\Application\UI\Control
      * @param Certificate $certificate
      * @param Form $form
      */
-    private function setDefaults(Certificate $certificate, Form $form)
+    public function setDefaults(Certificate $certificate, Form $form)
     {
         $form['id']->setDefaultValue($certificate->getId());
+        $form['name']->setDefaultValue($certificate->getName());
         $form['user_id']->setDefaultValue($certificate->getUser()->getId());
 
         if ($certificate->getStart()) {

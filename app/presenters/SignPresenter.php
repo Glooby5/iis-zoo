@@ -40,7 +40,7 @@ class SignPresenter extends BasePresenter
 		$form = $this->signUpFactory->create();
 
         $form->onSuccess[] = function () {
-            $this->flashMessage('Registrace proběhla úspěšně, můžete se přihlásit', 'ok');
+            $this->flashMessage('Registrace proběhla úspěšně, můžete se přihlásit');
             $this->redirect('Sign:in');
         };
 

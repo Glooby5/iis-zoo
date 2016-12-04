@@ -30,74 +30,99 @@
 <p>Uveïte prosím existující zástupce <strong>v¹ech rolí u¾ivatelù</strong>.</p>
 <table>
 <tbody><tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
-<tr><td>admin@zoo.cz</td><td>admin</td><td>Administrátor</td></tr>
-<tr><td>osetrovatel@zoo.cz</td><td>osetrovatel</td><td>O¹etøovatel</td></tr>
+<tr><td>admin@zoo.cz</td><td>ko9I8HYlPM</td><td>Administrátor</td></tr>
+<tr><td>osetrovatel@zoo.cz</td><td>HGhwgDB2ss</td><td>O¹etøovatel</td></tr>
+<tr><td>zaregistrovany@zoo.cz</td><td>JyJOV3NJCj</td><td>Zaregistrovaný</td></tr>
 </tbody></table>
 
 <h2>Implementace</h2>
 <p>
 	K realizaci projektu byl vyu¾it framework Nette v nejnovìj¹í verzi 2.4, pro pøístup k databázi je pou¾íván ORM
-	framework Doctrine 3. V¹echny závislosti jsou spravovány pomocí composeru. Aplikace je rozdìlana na logické èásti, které spravují jednotlivé presentery.
+	framework Doctrine 3. V¹echny závislosti jsou spravovány pomocí composeru. Aplikace je rozdìlana na logické èásti, které jsou spravovány jednotlivými presentery.
     Ty vìt¹inou odpovídají entitám jeliko¾ je v informaèním systému vyu¾íván objektový pøístup k databázi. Pro práci s danou entitou je v¾dy k dispozici tøída
     Repository, která zapouzdøuje dotazy do databáze.
 </p>
 
 <p>
-    Realizace generalizace/specializace u certifikátù je zde vyøe¹ená principem Single Table Inheritance, kdy existuje nadøazená abstraktní tøídy Certificate
-    a od ní jsou pak odvozeny jednotlivé specikující entity pro specifické certifikáty.
+    Realizace generalizace/specializace u certifikátù je zde vyøe¹ená principem Single Table Inheritance, kdy existuje nadøazená abstraktní tøída Certificate
+    a od ní jsou pak odvozeny jednotlivé specikující entity pro dané certifikáty.
+</p>
+
+<p>
+	Pro nastylování byl pou¾it framevork Bootstrap ve verzi 4. Prvky pro zadání data nebo rozbalovací menu vy¾adují jQuery 2.
+</p>
+
+<h3>Chování u¾ivatelù v systému</h3>
+<p>
+	Novì pøíchozí u¾ivatel se zaregistruje do systému. V této chvíli nemá v systému pøístup k ¾ádným akcím.
+	Nejprve mu musí nìkdo z admistrátorù nastavit roli O¹etøovatel nebo Adminstrátor.
 </p>
 
 <h3>Presentery</h3>
-    Rozdìlují aplikace na práci s jendotlivými objekty.
+    Rozdìlují aplikace na práci s jednotlivými objekty.
 
 	<h4>Homepage</h4>
-    <p>Pøi pøihlá¹eném u¾ivateli zobrazuje pøehled vybraných naplánovaných akcí.</p>
+    <p>Pøi pøihlá¹eném u¾ivateli v roli o¹etøovatem nebo administrátor zobrazuje pøehled vybraných naplánovaných akcí</p>
 
 	<h4>Animal</h4>
-	<p>Slou¾í pro práci se zvíøaty v zoo. Umo¾òuje vytváøení nového zvíøete, úpravu, zobrazení pøehledu zvíøat, zobrazení detailu a mazání (dále bude uvádìno jako CRUD)</p>
+	<p>
+		Slou¾í pro práci se zvíøaty v zoo. Umo¾òuje vytváøení nového zvíøete, úpravu, zobrazení pøehledu zvíøat, zobrazení
+		detailu a mazání (dále bude uvádìno jako CRUD). O¹etøovatel zde má omezená práva, nemù¾e zakládat a mazat.
+	</p>
 
 	<h4>Species</h4>
-    <p>Obstarává správu druhù zvíøat. CRUD. Na druh jsou navázány certifikáty opravòující krmit specifický druh.</p>
+    <p>
+		Obstarává správu druhù zvíøat. CRUD. Na druh jsou navázány certifikáty opravòující krmit specifický druh. O¹etøovatel opìt mù¾e jen prohlí¾et.
+	</p>
 
 	<h4>EnclosureType - správa typù výbìhu</h4>
-    <p>Správa typù výbìhù v databázi. CRUD. Na typ výbìhu jsou ptoom navázány certifikáty u¾ivatelù umo¾òující úklid daného typu výbìhu.</p>
+    <p>
+		Správa typù výbìhù v databázi. CRUD. Na typ výbìhu jsou potom navázány certifikáty u¾ivatelù umo¾òující úklid daného typu výbìhu. O¹etøovatel opìt mù¾e jen prohlí¾et.¨
+	</p>
 
 	<h4>Enclosure - správa výbìhu</h4>
-    <p>Správa výbìhù v zoo. CRUD.</p>
+    <p>
+		Správa výbìhù v zoo. CRUD. O¹etøovatel opìt mù¾e jen prohlí¾et.
+	</p>
 
 	<h4>Feeding</h4>
-    <p>Správa krmení. CRUD.</p>
+    <p>
+		Správa krmení. CRUD. O¹etøovatel mù¾e zakládat nová krmení a upravovat je. Po provedení krmení pøijde na jeho editaci a oznaèí ho jako provedené.
+	</p>
 
 	<h4>CleaningType</h4>
-    <p>Správa typù èi¹tìní, opìt provázáno s certifikáty. CRUD.</p>
+    <p>
+		Správa typù èi¹tìní, provázáno s certifikáty. CRUD. O¹etøovatel opìt mù¾e jen prohlí¾et.
+	</p>
 
 	<h4>Cleaning</h4>
-    <p>Správa èi¹tìní jednotlivých výbìhù zvíøat. CRUD.</p>
+    <p>
+		Správa èi¹tìní jednotlivých výbìhù zvíøat. CRUD. O¹etøovatel má stejné pravomoce jako u krmení. Poèet o¹etøovatelù pro krmení je pouze informativní.
+	</p>
 
 	<h4>CleaningTypeCertificate</h4>
-    <p>Správa certifikátù pro typ èi¹tìní. CRUD.</p>
+    <p>
+		Správa certifikátù pro typ èi¹tìní. CRUD. Certifikáty mù¾e spravovat pouze administrátor.
+	</p>
 
 	<h4>SpeciesCertificate</h4>
-    <p>Správa certifikátù pro druhy zvíøat. CRUD.</p>
+    <p>
+		Správa certifikátù pro druhy zvíøat. CRUD.
+	</p>
 
     <h4>EnclosureTypeCertificate</h4>
-    <p>Správa certifikátù pro typy výbìhù. CRUD.</p>
+    <p>
+		Správa certifikátù pro typy výbìhù. CRUD.
+	</p>
 
 <h2>Instalace</h2>
 <ul>
 	<li>Nakopírování obsahu zdrojového kódu na server</li>
 	<li>Spu¹tìní pøíkazu "composer install" pro nainstalování závislostí</li>
 	<li>Nastavení hodnot v konfiguraèním souboru config.local.neon pro pøístup do databáze</li>
-	<li>Vygenerování schématu databáze spu¹tìním pøíkazu "php www/index.php orm:schema-tool:create". Pøípadnì vyu¾ít skript "create-database.php"</li>
+	<li>Vygenerování schématu databáze spu¹tìním pøíkazu "php www/index.php orm:schema-tool:create". Pøípadnì vyu¾ít skript "db.php"</li>
 	<li>Vy¾aduje PHP7, MYSQL databázi s kódování utf8_general_ci/li>
 </ul>
-
-<h2>Známé problémy</h2>
-<p>Zde popi¹te, které body zadání (IDS a IIS) nejsou implementovány a z 
-jakého dùvodu. Napø. &#8222;Z èasových dùvodù nebyla implementována správa 
-u¾ivatelù.&#8221; Pomù¾ete tím zrychlit opravování, kdy¾ neimplementované 
-funkce nebudeme muset dlouze hledat.</p>
-
 
 
 </body></html>

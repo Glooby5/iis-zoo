@@ -61,5 +61,6 @@ class EnclosureTypeCertificateFormFactory extends Nette\Application\UI\Control
     private function setDefaults(EnclosureTypeCertificate $certificate, Form $form)
     {
         $form['enclosure_type_id']->setDefaultValue($certificate->getEnclosureType()->getId());
+        $this->certificateFormFactory->setDefaults($certificate, $form);
     }
 }
