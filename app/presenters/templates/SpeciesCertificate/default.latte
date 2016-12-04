@@ -2,26 +2,32 @@
 <div class="container">
     <h1 n:block="title" class="text-xs-center" >Přehled certifikátů pro druhy</h1>
     <a n:href="SpeciesCertificate:create" class="col-xs-2 offset-xs-8 btn btn-primary">Zadat nový</a>
-    <div class="col-xs-8 offset-xs-2 card bg-faded">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Název</th>
-                <th>Druh</th>
-                <th>Uživatel</th>
-                <th>Expirace</th>
-            </tr>
-            </thead>
-            {foreach $allCertificates as $certificate}
+    {if $allCertificates}
+        <div class="col-xs-8 offset-xs-2 card bg-faded">
+            <table class="table">
+                <thead>
                 <tr>
-                    <th>{$certificate->getId()}</th>
-                    <td><a n:href="SpeciesCertificate:detail $certificate->getId()">{$certificate->getName()}</a></td>
-                    <td>{$certificate->getSpecies()->getName()}</td>
-                    <td>{$certificate->getUser()->getName()}</td>
-                    <td>{$certificate->getEnd()|date:'%d.%m.%Y'}</td>
+                    <th>#</th>
+                    <th>Název</th>
+                    <th>Druh</th>
+                    <th>Uživatel</th>
+                    <th>Expirace</th>
                 </tr>
-            {/foreach}
-        </table>
-    </div>
+                </thead>
+                {foreach $allCertificates as $certificate}
+                    <tr>
+                        <th>{$certificate->getId()}</th>
+                        <td><a n:href="SpeciesCertificate:detail $certificate->getId()">{$certificate->getName()}</a></td>
+                        <td>{$certificate->getSpecies()->getName()}</td>
+                        <td>{$certificate->getUser()->getName()}</td>
+                        <td>{$certificate->getEnd()|date:'%d.%m.%Y'}</td>
+                    </tr>
+                {/foreach}
+            </table>
+        </div>
+    {else}
+        <div class="alert alert-dismissible alert-info offset-xs-3 col-xs-6 no-records">
+            <strong>Nejsou k dispozici žádné záznamy</strong>
+        </div>
+    {/if}
 </div>

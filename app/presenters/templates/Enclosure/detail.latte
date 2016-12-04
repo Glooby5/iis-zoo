@@ -23,7 +23,7 @@
         </table>
     </div>
 
-    <a n:href="Enclosure:edit $enclosure->getId()" n:if="$user->isInRole(\App\Entities\User::ADMIN)"class="col-xs-3 offset-xs-2 btn btn-primary">Upravit</a>
+    <a n:href="Enclosure:edit $enclosure->getId()" n:if="$user->isInRole(\App\Entities\User::ADMIN)" class="col-xs-3 offset-xs-2 btn btn-primary">Upravit</a>
     <a n:href="Enclosure:delete $enclosure->getId()" n:if="$user->isInRole(\App\Entities\User::ADMIN)" class="col-xs-3 offset-xs-2 btn btn-primary">Odstranit</a>
 </div>
 

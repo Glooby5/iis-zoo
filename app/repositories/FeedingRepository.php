@@ -77,7 +77,8 @@ class FeedingRepository
             ->where('f.keeper = :user')
             ->setParameter(':user', $userId)
             ->andwhere('f.start >= :actual')
-            ->setParameter(':actual', new DateTime());
+            ->setParameter(':actual', new DateTime())
+            ->andWhere('f.done = FALSE');
 
         return $queryBuilder->getQuery()->getResult();
     }

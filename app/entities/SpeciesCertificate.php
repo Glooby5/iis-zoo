@@ -12,11 +12,12 @@ class SpeciesCertificate extends Certificate
     /**
      * @var Species
      * @ORM\ManyToOne(targetEntity="Species")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $species;
 
     /**
-     * @return CleaningType
+     * @return Species
      */
     public function getSpecies()
     {

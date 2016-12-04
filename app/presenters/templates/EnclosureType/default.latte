@@ -2,22 +2,28 @@
 <div class="container">
     <h1 n:block="title" class="text-xs-center" >Přehled typů výběhu</h1>
     <a n:href="EnclosureType:create" n:if="$user->isInRole(\App\Entities\User::ADMIN)" class="col-xs-2 offset-xs-8 btn btn-primary">Vytvořit nový</a>
-    <div class="col-xs-8 offset-xs-2 card bg-faded">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Název</th>
-                </tr>
-                </thead>
-                {foreach $enclosureTypes as $enclosureType}
+    {if $enclosureTypes}
+        <div class="col-xs-8 offset-xs-2 card bg-faded">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                     <tr>
-                        <th>{$enclosureType->getId()}</th>
-                        <td><a n:href="EnclosureType:detail $enclosureType->getId()">{$enclosureType->getName()}</a></td>
+                        <th>#</th>
+                        <th>Název</th>
                     </tr>
-                {/foreach}
-            </table>
+                    </thead>
+                    {foreach $enclosureTypes as $enclosureType}
+                        <tr>
+                            <th>{$enclosureType->getId()}</th>
+                            <td><a n:href="EnclosureType:detail $enclosureType->getId()">{$enclosureType->getName()}</a></td>
+                        </tr>
+                    {/foreach}
+                </table>
+            </div>
         </div>
-    </div>
+    {else}
+        <div class="alert alert-dismissible alert-info offset-xs-3 col-xs-6 no-records">
+            <strong>Nejsou k dispozici žádné záznamy</strong>
+        </div>
+    {/if}
 </div>

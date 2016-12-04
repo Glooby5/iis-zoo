@@ -1,26 +1,32 @@
 {block content}
 <div class="container">
     <h1 n:block="title" class="text-xs-center" >Přehled uživatelů</h1>
-    <div class="col-xs-8 offset-xs-2 card bg-faded">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Jméno</th>
-                    <th>Příjmení</th>
-                    <th>Role</th>
-                </tr>
-                </thead>
-                {foreach $users as $myUser}
-                <tr>
-                    <td>{$myUser->getId()}</td>
-                    <td><a n:href="User:detail $myUser->getId()" n:if="$user->isInRole(\App\Entities\User::ADMIN)">{$myUser->getFirstname()}</a></td>
-                    <td>{$myUser->getName()}</td>
-                    <td>{$myUser->getRole()}</td>
-                </tr>
-                {/foreach}
-            </table>
+    {if $users}
+        <div class="col-xs-8 offset-xs-2 card bg-faded">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Jméno</th>
+                        <th>Příjmení</th>
+                        <th>Role</th>
+                    </tr>
+                    </thead>
+                    {foreach $users as $myUser}
+                    <tr>
+                        <td>{$myUser->getId()}</td>
+                        <td><a n:href="User:detail $myUser->getId()" n:if="$user->isInRole(\App\Entities\User::ADMIN)">{$myUser->getFirstname()}</a></td>
+                        <td>{$myUser->getName()}</td>
+                        <td>{$myUser->getRole()}</td>
+                    </tr>
+                    {/foreach}
+                </table>
+            </div>
         </div>
-    </div>
+    {else}
+        <div class="alert alert-dismissible alert-info offset-xs-3 col-xs-6 no-records">
+            <strong>Nejsou k dispozici žádné záznamy</strong>
+        </div>
+    {/if}
 </div>

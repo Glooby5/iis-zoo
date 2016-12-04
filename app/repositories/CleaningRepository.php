@@ -99,7 +99,8 @@ class CleaningRepository
             ->where('u.id = :user')
             ->setParameter(':user', $userId)
             ->andwhere('c.start >= :actual')
-            ->setParameter(':actual', new DateTime());
+            ->setParameter(':actual', new DateTime())
+            ->andWhere('c.done = FALSE');
 
         return $queryBuilder->getQuery()->getResult();
     }

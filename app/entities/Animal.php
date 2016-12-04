@@ -42,24 +42,28 @@ class Animal
     /**
      * @var Species
      * @ORM\ManyToOne(targetEntity="Species", inversedBy="animals")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $species;
 
     /**
      * @var Enclosure
      * @ORM\ManyToOne(targetEntity="Enclosure", inversedBy="animals")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $enclosure;
 
     /**
      * @var Animal
      * @ORM\OneToOne(targetEntity="Animal")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     protected $mother = NULL;
 
     /**
      * @var Animal
      * @ORM\OneToOne(targetEntity="Animal")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     protected $father = NULL;
 

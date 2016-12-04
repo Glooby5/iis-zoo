@@ -9,6 +9,7 @@ use App\Repositories\UserRepository;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Utils\DateTime;
+use Symfony\Component\Console\Tests\Fixtures\DescriptorApplication1;
 
 class FeedingFormFactory extends Nette\Application\UI\Control
 {
@@ -89,17 +90,25 @@ class FeedingFormFactory extends Nette\Application\UI\Control
         return $form;
     }
 
-    public function validateCertificates($form, $values)
+    public function validateCertificates(Form $form, $values)
     {
+        $startDate = new DateTime($values->start);
+        $endDate = new DateTime($values->end);
+
+        if ($endDate <= $startDate) {
+            $form->addError("Konec akce nemůže být menší nebo stejný jako začátek");
+        }
+
+
         $animal = $this->animalRepository->find($values->animal_id);
-        $certificates = $this->speciesCertificateRepository->canUserFeedSpecies($values->keeper_id, $animal->getSpecies()->getId(), new DateTime($values->start));
+        $certificates = $this->speciesCertificateRepository->canUserFeedSpecies($values->keeper_id, $animal->getSpecies()->getId(), $startDate);
 
         if (!$certificates) {
             $form->addError("Ošetřovatel nemá platný certifikát umožňující krmení tohoto druhu");
             return false;
         }
 
-        $freeTime = $this->userRepository->hasUserFreeTime($values->keeper_id, new DateTime($values->start), new DateTime($values->end), $values->id, NULL);
+        $freeTime = $this->userRepository->hasUserFreeTime($values->keeper_id, $startDate, $endDate, $values->id, NULL);
 
         if (!$freeTime) {
             $form->addError("Ošetřovatel má v zadanou dobu naplánované jiné aktivity");

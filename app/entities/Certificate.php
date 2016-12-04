@@ -40,12 +40,6 @@ abstract class Certificate
     protected $end;
 
     /**
-     * @var Species
-     * @ORM\ManyToOne(targetEntity="Species")
-     */
-    protected $species;
-
-    /**
      * @return string
      */
     public function getName()
@@ -107,22 +101,6 @@ abstract class Certificate
     public function setUser(User $user)
     {
         $this->user = $user;
-    }
-
-    /**
-     * @return Species
-     */
-    public function getSpecies()
-    {
-        return $this->species;
-    }
-
-    /**
-     * @param Species $species
-     */
-    public function setSpecies(Species $species)
-    {
-        $this->species = $species;
     }
 
 }

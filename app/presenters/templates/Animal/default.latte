@@ -2,26 +2,33 @@
 <div class="container">
     <h1 n:block="title" class="text-xs-center" >Přehled zvířat</h1>
     <a n:href="Animal:create" class="col-xs-2 offset-xs-8 btn btn-primary" n:if="$user->isInRole(\App\Entities\User::ADMIN)">Vytvořit nové</a>
-    <div class="col-xs-8 offset-xs-2 card bg-faded">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Jméno</th>
-                    <th>Druh</th>
-                    <th>Výběh</th>
-                </tr>
-                </thead>
-                {foreach $animals as $animal}
+
+    {if $animals}
+        <div class="col-xs-8 offset-xs-2 card bg-faded">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                     <tr>
-                        <th>{$animal->getId()}</th>
-                        <td><a n:href="Animal:detail $animal->getId()">{$animal->getName()}</a></td>
-                        <td>{$animal->getSpecies()->getName()}</td>
-                        <td>{$animal->getEnclosure()->getLabel()}</td>
+                        <th>#</th>
+                        <th>Jméno</th>
+                        <th>Druh</th>
+                        <th>Výběh</th>
                     </tr>
-                {/foreach}
-            </table>
+                    </thead>
+                    {foreach $animals as $animal}
+                        <tr>
+                            <th>{$animal->getId()}</th>
+                            <td><a n:href="Animal:detail $animal->getId()">{$animal->getName()}</a></td>
+                            <td>{$animal->getSpecies()->getName()}</td>
+                            <td>{$animal->getEnclosure()->getLabel()}</td>
+                        </tr>
+                    {/foreach}
+                </table>
+            </div>
         </div>
-    </div>
+    {else}
+        <div class="alert alert-dismissible alert-info offset-xs-3 col-xs-6 no-records">
+            <strong>Nejsou k dispozici žádné záznamy</strong>
+        </div>
+    {/if}
 </div>

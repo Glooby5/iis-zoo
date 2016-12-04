@@ -12,6 +12,7 @@ class EnclosureTypeCertificate extends Certificate
     /**
      * @var EnclosureType
      * @ORM\ManyToOne(targetEntity="EnclosureType")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $enclosureType;
 

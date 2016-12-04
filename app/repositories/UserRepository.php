@@ -86,7 +86,8 @@ class UserRepository
             ->select('f')
             ->from(Feeding::class, 'f')
             ->where('f.keeper = :user')
-            ->setParameter(':user', $userId);
+            ->setParameter(':user', $userId)
+            ->andWhere('f.done = FALSE');
 
         $queryBuilder
             ->andwhere($queryBuilder->expr()->orX(
@@ -111,7 +112,8 @@ class UserRepository
             ->from(Cleaning::class, 'c')
             ->innerJoin('c.cleaners', 'u')
             ->where('u.id = :user')
-            ->setParameter(':user', $userId);
+            ->setParameter(':user', $userId)
+            ->andWhere('c.done = FALSE');
 
         $queryBuilder
             ->andwhere($queryBuilder->expr()->orX(

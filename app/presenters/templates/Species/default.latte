@@ -2,20 +2,26 @@
 <div class="container">
     <h1 n:block="title" class="text-xs-center" >Přehled druhů</h1>
     <a n:href="Species:create" class="col-xs-2 offset-xs-8 btn btn-primary">Zadat nový</a>
-    <div class="col-xs-8 offset-xs-2 card bg-faded">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Název</th>
-            </tr>
-            </thead>
-            {foreach $allSpecies as $species}
+    {if $allSpecies}
+        <div class="col-xs-8 offset-xs-2 card bg-faded">
+            <table class="table">
+                <thead>
                 <tr>
-                    <th>{$species->getId()}</th>
-                    <td><a n:href="Species:detail $species->getId()">{$species->getName()}</a></td>
+                    <th>#</th>
+                    <th>Název</th>
                 </tr>
-            {/foreach}
-        </table>
-    </div>
+                </thead>
+                {foreach $allSpecies as $species}
+                    <tr>
+                        <th>{$species->getId()}</th>
+                        <td><a n:href="Species:detail $species->getId()">{$species->getName()}</a></td>
+                    </tr>
+                {/foreach}
+            </table>
+        </div>
+    {else}
+        <div class="alert alert-dismissible alert-info offset-xs-3 col-xs-6 no-records">
+            <strong>Nejsou k dispozici žádné záznamy</strong>
+        </div>
+    {/if}
 </div>

@@ -28,7 +28,7 @@ class Species
 
     /**
      * @var Animal[]
-     * @ORM\OneToMany(targetEntity="Animal", mappedBy="species")
+     * @ORM\OneToMany(targetEntity="Animal", mappedBy="species", cascade={"remove"})
      */
     protected $animals;
 
