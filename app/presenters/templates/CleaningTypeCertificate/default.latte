@@ -1,6 +1,6 @@
 {block content}
 <div class="container">
-    <h1 n:block="title" class="text-xs-center" >Přehled certifikátů pro typ čištění</h1>
+    <h1 n:block="title" class="text-xs-center" >Přehled certifikátů pro čištění</h1>
     <a n:href="CleaningTypeCertificate:create" class="col-xs-2 offset-xs-8 btn btn-primary">Zadat nový</a>
     <div class="col-xs-8 offset-xs-2 card bg-faded">
         <table class="table">
@@ -8,12 +8,18 @@
             <tr>
                 <th>#</th>
                 <th>Název</th>
+                <th>Typ čištění</th>
+                <th>Uživatel</th>
+                <th>Expirace</th>
             </tr>
             </thead>
             {foreach $allCertificates as $certificate}
                 <tr>
                     <th>{$certificate->getId()}</th>
                     <td><a n:href="CleaningTypeCertificate:detail $certificate->getId()">{$certificate->getName()}</a></td>
+                    <td>{$certificate->getCleaningType()->getName()}</td>
+                    <td>{$certificate->getUser()->getLastname()}</td>
+                    <td>{$certificate->getEnd()|date:'%d.%m.%Y'}</td>
                 </tr>
             {/foreach}
         </table>

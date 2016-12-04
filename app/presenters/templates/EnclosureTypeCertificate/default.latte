@@ -8,12 +8,18 @@
             <tr>
                 <th>#</th>
                 <th>Název</th>
+                <th>Typ výběhu</th>
+                <th>Uživatel</th>
+                <th>Expirace</th>
             </tr>
             </thead>
             {foreach $allCertificates as $certificate}
                 <tr>
                     <th>{$certificate->getId()}</th>
                     <td><a n:href="EnclosureTypeCertificate:detail $certificate->getId()">{$certificate->getName()}</a></td>
+                    <td>{$certificate->getEnclosureType()->getName()}</td>
+                    <td>{$certificate->getUser()->getLastname()}</td>
+                    <td>{$certificate->getEnd()|date:'%d.%m.%Y'}</td>
                 </tr>
             {/foreach}
         </table>
