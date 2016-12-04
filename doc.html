@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-2">
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<h1>Správa ZOO</h1>
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>Jan Kadeřábek
+	    <a href="mailto:xkader13@stud.fit.vutbr.cz">xkader13@stud.fit.vutbr.cz</a> -
+		Modelový návrh, backend
+	</dd>
+	<dd>Ondřej Zemánek <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xzeman53@stud.fit.vutbr.cz">xzeman53@stud.fit.vutbr.cz</a> -
+		Uživatelská správa, frontend
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://iis.stavby-kaderabek.cz">http://iis.stavby-kaderabek.cz</a></dd>
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p>
+<table>
+<tbody><tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>admin@zoo.cz</td><td>admin</td><td>Administrátor</td></tr>
+<tr><td>osetrovatel@zoo.cz</td><td>osetrovatel</td><td>Ošetřovatel</td></tr>
+</tbody></table>
+
+<h2>Implementace</h2>
+<p>
+	K realizaci projektu byl využit framework Nette v nejnovější verzi 2.4, pro přístup k databázi je používán ORM
+	framework Doctrine 3. Všechny závislosti jsou spravovány pomocí composeru. Aplikace je rozdělana na logické části, které spravují jednotlivé presentery.
+    Ty většinou odpovídají entitám jelikož je v informačním systému využíván objektový přístup k databázi. Pro práci s danou entitou je vždy k dispozici třída
+    Repository, která zapouzdřuje dotazy do databáze.
+</p>
+
+<p>
+    Realizace generalizace/specializace u certifikátů je zde vyřešená principem Single Table Inheritance, kdy existuje nadřazená abstraktní třídy Certificate
+    a od ní jsou pak odvozeny jednotlivé specikující entity pro specifické certifikáty.
+</p>
+
+<h3>Presentery</h3>
+    Rozdělují aplikace na práci s jendotlivými objekty.
+
+	<h4>Homepage</h4>
+    <p>Při přihlášeném uživateli zobrazuje přehled vybraných naplánovaných akcí.</p>
+
+	<h4>Animal</h4>
+	<p>Slouží pro práci se zvířaty v zoo. Umožňuje vytváření nového zvířete, úpravu, zobrazení přehledu zvířat, zobrazení detailu a mazání (dále bude uváděno jako CRUD)</p>
+
+	<h4>Species</h4>
+    <p>Obstarává správu druhů zvířat. CRUD. Na druh jsou navázány certifikáty opravňující krmit specifický druh.</p>
+
+	<h4>EnclosureType - správa typů výběhu</h4>
+    <p>Správa typů výběhů v databázi. CRUD. Na typ výběhu jsou ptoom navázány certifikáty uživatelů umožňující úklid daného typu výběhu.</p>
+
+	<h4>Enclosure - správa výběhu</h4>
+    <p>Správa výběhů v zoo. CRUD.</p>
+
+	<h4>Feeding</h4>
+    <p>Správa krmení. CRUD.</p>
+
+	<h4>CleaningType</h4>
+    <p>Správa typů čištění, opět provázáno s certifikáty. CRUD.</p>
+
+	<h4>Cleaning</h4>
+    <p>Správa čištění jednotlivých výběhů zvířat. CRUD.</p>
+
+	<h4>CleaningTypeCertificate</h4>
+    <p>Správa certifikátů pro typ čištění. CRUD.</p>
+
+	<h4>SpeciesCertificate</h4>
+    <p>Správa certifikátů pro druhy zvířat. CRUD.</p>
+
+    <h4>EnclosureTypeCertificate</h4>
+    <p>Správa certifikátů pro typy výběhů. CRUD.</p>
+
+<h2>Instalace</h2>
+<ul>
+	<li>Nakopírování obsahu zdrojového kódu na server</li>
+	<li>Spuštění příkazu "composer install" pro nainstalování závislostí</li>
+	<li>Nastavení hodnot v konfiguračním souboru config.local.neon pro přístup do databáze</li>
+	<li>Vygenerování schématu databáze spuštěním příkazu "php www/index.php orm:schema-tool:create". Případně využít skript "create-database.php"</li>
+	<li>Vyžaduje PHP7, MYSQL databázi s kódování utf8_general_ci/li>
+</ul>
+
+<h2>Známé problémy</h2>
+<p>Zde popište, které body zadání (IDS a IIS) nejsou implementovány a z 
+jakého důvodu. Např. &#8222;Z časových důvodů nebyla implementována správa 
+uživatelů.&#8221; Pomůžete tím zrychlit opravování, když neimplementované 
+funkce nebudeme muset dlouze hledat.</p>
+
+
+
+</body></html>
