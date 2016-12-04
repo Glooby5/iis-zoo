@@ -2,6 +2,12 @@
 
 <h1 n:block="title" class="text-xs-center" >Mé nadcházející činnosti</h1>
 
+{if !$feedings && !$cleanings}
+    <div class="alert alert-dismissible alert-info offset-xs-3 col-xs-6 no-records">
+        <strong>Nejsou k dispozici žádné záznamy</strong>
+    </div>
+{/if}
+
 {if count($feedings)}
 <div class="container">
     <h2 class="text-xs-center" >Přehled krmení</h2>
@@ -20,8 +26,8 @@
                 </thead>
                 {foreach $feedings as $feeding}
                     <tr>
-                        <th>{$feeding->getId()}</th>
-                        <td><a n:href="Feeding:detail $feeding->getId()">{$feeding->getAnimal()->getName()}</a></td>
+                        <th><a n:href="Feeding:detail $feeding->getId()">{$feeding->getId()}</a></th>
+                        <td><a n:href="Animal:detail $feeding->getId()">{$feeding->getAnimal()->getName()}</a></td>
                         <td>{$feeding->getAnimal()->getSpecies()->getName()}</td>
                         <td>{$feeding->getSpecies()}</td>
                         <td>{$feeding->getAmount()}</td>
@@ -50,8 +56,8 @@
                     </thead>
                     {foreach $cleanings as $cleaning}
                         <tr>
-                            <th>{$cleaning->getId()}</th>
-                            <td><a n:href="Cleaning:detail $cleaning->getId()">{$cleaning->getEnclosure()->getLabel()}</a></td>
+                            <th><a n:href="Cleaning:detail $cleaning->getId()">{$cleaning->getId()}</a></th>
+                            <td><a n:href="Enclosure:detail $cleaning->getEnclosure()->getId()">{$cleaning->getEnclosure()->getLabel()}</a></td>
                             <td>{$cleaning->getCleaningType()->getName()}</td>
                             <td>{$cleaning->getStart()|date:'%d.%m.%Y %H:%M'}</td>
                         </tr>

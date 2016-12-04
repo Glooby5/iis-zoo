@@ -59,5 +59,6 @@ class SpeciesCertificateFormFactory extends Nette\Application\UI\Control
     private function setDefaults(SpeciesCertificate $certificate, Form $form)
     {
         $form['species_id']->setDefaultValue($certificate->getSpecies()->getId());
+        $this->certificateFormFactory->setDefaults($certificate, $form);
     }
 }

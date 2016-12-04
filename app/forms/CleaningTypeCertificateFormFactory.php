@@ -63,5 +63,6 @@ class CleaningTypeCertificateFormFactory extends Nette\Application\UI\Control
     private function setDefaults(CleaningTypeCertificate $certificate, Form $form)
     {
         $form['cleaning_type_id']->setDefaultValue($certificate->getCleaningType()->getId());
+        $this->certificateFormFactory->setDefaults($certificate, $form);
     }
 }

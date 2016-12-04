@@ -23,3 +23,47 @@ ALTER TABLE cleaning_user ADD CONSTRAINT FK_D5A3C1CA76ED395 FOREIGN KEY (user_id
 ALTER TABLE enclosure ADD CONSTRAINT FK_E0F730636740819A FOREIGN KEY (enclosure_type_id) REFERENCES enclosure_type (id) ON DELETE CASCADE;
 ALTER TABLE feeding ADD CONSTRAINT FK_A70BE25C7B7C4783 FOREIGN KEY (keeper_id) REFERENCES user (id);
 ALTER TABLE feeding ADD CONSTRAINT FK_A70BE25C8E962C16 FOREIGN KEY (animal_id) REFERENCES animal (id) ON DELETE CASCADE;
+
+INSERT INTO `animal` (`id`, `species_id`, `enclosure_id`, `mother_id`, `father_id`, `name`, `sex`, `birthday`, `country`, `date_of_death`, `dead`) VALUES
+(1, 1, 1, 2, NULL, 'Vorpel', 'male', '2015-10-14 00:00:00', 'Česká republika', NULL, 0),
+(2, 1, 1, NULL, NULL, 'Agaue', 'female', '2012-12-19 00:00:00', 'Slovensko', NULL, 0);
+
+
+INSERT INTO `certificate` (`id`, `user_id`, `species_id`, `enclosure_type_id`, `cleaning_type_id`, `name`, `start`, `end`, `discr`) VALUES
+(1, 3, 1, NULL, NULL, 'Certifikát pro práci se slony', '2016-03-07 00:00:00', '2017-09-28 00:00:00', 'species'),
+(2, 1, NULL, NULL, 1, 'Certifikát pro kydání hnoje', '2015-11-30 00:00:00', '2018-02-10 00:00:00', 'cleaning'),
+(3, 1, NULL, 1, NULL, 'Certifikát pro vstup do výběhu slonů', '2016-02-01 00:00:00', '2018-01-21 00:00:00', 'enclosure');
+
+
+INSERT INTO `cleaning` (`id`, `enclosure_id`, `cleaning_type_id`, `attendants_count`, `start`, `end`, `done`) VALUES
+(1, 1, 1, 1, '2017-02-09 13:00:00', '2017-01-09 14:00:00', 0);
+
+
+INSERT INTO `cleaning_type` (`id`, `name`, `tools`) VALUES
+(1, 'Kydání hnoje', 'vidle, kolečko');
+
+
+INSERT INTO `cleaning_user` (`cleaning_id`, `user_id`) VALUES
+(1, 1);
+
+
+INSERT INTO `enclosure` (`id`, `enclosure_type_id`, `label`, `size`, `capacity`) VALUES
+(1, 1, 'Výběh slonů, 5B', '500 m2', 4);
+
+
+INSERT INTO `enclosure_type` (`id`, `name`) VALUES
+(1, 'Ohrada pro slony');
+
+
+INSERT INTO `feeding` (`id`, `keeper_id`, `animal_id`, `start`, `end`, `species`, `amount`, `done`) VALUES
+(1, 3, 1, '2017-02-17 09:30:00', '2017-02-17 09:55:00', 'salát', '3 nádoby', 0);
+
+
+INSERT INTO `species` (`id`, `name`, `occurrence`) VALUES
+(1, 'Slon testovací', 'Afrika');
+
+
+INSERT INTO `user` (`id`, `email`, `password`, `firstname`, `lastname`, `personal_number`, `birthday`, `title`, `role`) VALUES
+(1, 'admin@zoo.cz', '$2y$10$3FKwPjxjck2X5GeT8.LSWOg9Qj5/IGgyW5SGscGWYeCzEQSBkM.w6', 'Hlavní', 'Administrátor', '', '2016-12-04 19:41:49', 'Ing', 'admin'),
+(3, 'osetrovatel@zoo.cz', '$2y$10$klzMsLp7n4QVvE6qT929/ee3gPBbEAWWzw6bEsjY8/HJI/onKAEYK', 'První', 'Ošetřovatel', '', '2016-12-04 19:49:09', '', 'attendant'),
+(4, 'zaregistrovany@zoo.cz', '$2y$10$V3VfOU0iwEheE2gHonQdA.norICgc/5UqQHWEAjOv.5BL5l4QefjC', 'Pouze', 'Zaregistrovany', NULL, NULL, NULL, 'registered');

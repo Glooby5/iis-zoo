@@ -19,8 +19,8 @@
                     </thead>
                     {foreach $feedings as $feeding}
                         <tr>
-                            <th>{$feeding->getId()}</th>
-                            <td><a n:href="Feeding:detail $feeding->getId()">{$feeding->getAnimal()->getName()}</a></td>
+                            <th><a n:href="Feeding:detail $feeding->getId()">{$feeding->getId()}</a></th>
+                            <td><a n:href="Animal:detail $feeding->getAnimal()->getId()">{$feeding->getAnimal()->getName()}</a></td>
                             <td>{$feeding->getAnimal()->getSpecies()->getName()}</td>
                             <td>{$feeding->getKeeper()->getName()}</td>
                             <td>{$feeding->getSpecies()}</td>
