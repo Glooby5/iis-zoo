@@ -1,7 +1,7 @@
 {block content}
 <div class="container">
     <h1 n:block="title" class="text-xs-center" >Přehled výběhů</h1>
-    <a n:href="Enclosure:create" class="col-xs-2 offset-xs-8 btn btn-primary" n:if="$user->isInRole(\App\Entities\User::ADMIN)">Zadat nový</a>
+    <a n:href="Enclosure:create" class="col-xs-2 offset-xs-5 btn btn-primary" n:if="$user->isInRole(\App\Entities\User::ADMIN)">Zadat nový</a>
     {if $enclosures}
         <div class="col-xs-8 offset-xs-2 card bg-faded">
             <div class="table-responsive">
