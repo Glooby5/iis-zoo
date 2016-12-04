@@ -218,6 +218,10 @@ class User implements IIdentity
 
     function getRoles()
     {
+        if ($this->role == self::ADMIN) {
+            return [$this->role, self::ATTENDANT];
+        }
+
         return [$this->getRole()];
     }
 }

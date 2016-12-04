@@ -3,12 +3,13 @@
 namespace App\Presenters;
 
 use App\Entities\Cleaning;
+use App\Entities\User;
 use App\Forms\CleaningFormFactory;
 use App\Repositories\CleaningRepository;
 use Nette;
 use Nette\Http\IResponse;
 
-class CleaningPresenter extends BasePresenter
+class CleaningPresenter extends SecuredPresenter
 {
     /** @var CleaningFormFactory @inject */
     public $cleaningFormFactory;
@@ -19,12 +20,11 @@ class CleaningPresenter extends BasePresenter
     /** @var Cleaning|NULL */
     private $editingCleaning;
 
-    public function startup()
+    public function actionCreate()
     {
-        parent::startup();
-
-        if ( ! $this->user->isLoggedIn()) {
-            $this->error('Nemáte oprávnění', IResponse::S403_FORBIDDEN);
+        if ($this->user->isInRole(User::ATTENDANT)) {
+            $this->printForbiddenMessage();
+            $this->redirect('Cleaning:');
         }
     }
 
@@ -45,6 +45,11 @@ class CleaningPresenter extends BasePresenter
 
     public function actionEdit($id)
     {
+        if ($this->user->isInRole(User::ATTENDANT)) {
+            $this->printForbiddenMessage();
+            $this->redirect('Cleaning:');
+        }
+
         $this->editingCleaning = $this->cleaningRepository->find($id);
 
         if ( ! $this->editingCleaning) {
@@ -54,6 +59,11 @@ class CleaningPresenter extends BasePresenter
 
     public function actionDelete($id)
     {
+        if ($this->user->isInRole(User::ATTENDANT)) {
+            $this->printForbiddenMessage();
+            $this->redirect('Cleaning:');
+        }
+
         $species = $this->cleaningRepository->find($id);
 
         if ($species) {

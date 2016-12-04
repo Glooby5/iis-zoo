@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Entities\Certificate;
 use App\Entities\Species;
+use App\Entities\User;
 use App\Forms\CleaningTypeCertificateFormFactory;
 use App\Forms\SpeciesCertificateFormFactory;
 use App\Repositories\CleaningTypeCertificateRepository;
@@ -14,7 +15,7 @@ use Nette;
 use Nette\Http\IResponse;
 
 
-class CleaningTypeCertificatePresenter extends BasePresenter
+class CleaningTypeCertificatePresenter extends SecuredPresenter
 {
     /** @var CleaningTypeCertificateFormFactory @inject */
     public $cleaningTypeCertificateFormFactory;
@@ -25,12 +26,11 @@ class CleaningTypeCertificatePresenter extends BasePresenter
     /** @var Certificate|NULL */
     private $editingCertificate;
 
-    public function startup()
+    public function actionCreate()
     {
-        parent::startup();
-
-        if ( ! $this->user->isLoggedIn()) {
-            $this->error('Nemáte oprávnění', IResponse::S403_FORBIDDEN);
+        if ($this->user->isInRole(User::ATTENDANT)) {
+            $this->printForbiddenMessage();
+            $this->redirect('CleaningTypeCertificate:');
         }
     }
 
@@ -51,6 +51,11 @@ class CleaningTypeCertificatePresenter extends BasePresenter
 
     public function actionEdit($id)
     {
+        if ($this->user->isInRole(User::ATTENDANT)) {
+            $this->printForbiddenMessage();
+            $this->redirect('CleaningTypeCertificate:');
+        }
+
         $this->editingCertificate = $this->cleaningTypeCertificateRepository->find($id);
 
         if ( ! $this->editingCertificate) {
@@ -60,6 +65,11 @@ class CleaningTypeCertificatePresenter extends BasePresenter
 
     public function actionDelete($id)
     {
+        if ($this->user->isInRole(User::ATTENDANT)) {
+            $this->printForbiddenMessage();
+            $this->redirect('CleaningTypeCertificate:');
+        }
+
         $certificate = $this->cleaningTypeCertificateRepository->find($id);
 
         if ($certificate) {
