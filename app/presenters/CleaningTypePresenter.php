@@ -3,13 +3,14 @@
 namespace App\Presenters;
 
 use App\Entities\CleaningType;
+use App\Entities\User;
 use App\Forms\CleaningTypeFormFactory;
 use App\Repositories\CleaningTypeRepository;
 use Nette;
 use Nette\Http\IResponse;
 
 
-class CleaningTypePresenter extends BasePresenter
+class CleaningTypePresenter extends SecuredPresenter
 {
     /** @var CleaningTypeFormFactory @inject */
     public $cleaningTypeFormFactory;
@@ -20,12 +21,11 @@ class CleaningTypePresenter extends BasePresenter
     /** @var  CleaningType|NULL */
     private $editingCleaningType;
 
-    public function startup()
+    public function actionCreate()
     {
-        parent::startup();
-
-        if ( ! $this->user->isLoggedIn()) {
-            $this->error('Nemáte oprávnění', IResponse::S403_FORBIDDEN);
+        if (!$this->user->isInRole(User::ADMIN)) {
+            $this->printForbiddenMessage();
+            $this->redirect('CleaningType:');
         }
     }
 
@@ -46,6 +46,11 @@ class CleaningTypePresenter extends BasePresenter
 
     public function actionEdit($id)
     {
+        if (!$this->user->isInRole(User::ADMIN)) {
+            $this->printForbiddenMessage();
+            $this->redirect('CleaningType:');
+        }
+
         $this->editingCleaningType = $this->cleaningTypeRepository->find($id);
 
         if ( ! $this->editingCleaningType) {
@@ -55,6 +60,11 @@ class CleaningTypePresenter extends BasePresenter
 
     public function actionDelete($id)
     {
+        if (!$this->user->isInRole(User::ADMIN)) {
+            $this->printForbiddenMessage();
+            $this->redirect('CleaningType:');
+        }
+
         $cleaningType = $this->cleaningTypeRepository->find($id);
 
         if ($cleaningType) {

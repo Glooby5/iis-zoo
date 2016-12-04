@@ -1,27 +1,33 @@
 {block content}
 <div class="container">
     <h1 n:block="title" class="text-xs-center" >Přehled certifikátů pro čištění</h1>
-    <a n:href="CleaningTypeCertificate:create" class="col-xs-2 offset-xs-8 btn btn-primary">Zadat nový</a>
-    <div class="col-xs-8 offset-xs-2 card bg-faded">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Název</th>
-                <th>Typ čištění</th>
-                <th>Uživatel</th>
-                <th>Expirace</th>
-            </tr>
-            </thead>
-            {foreach $allCertificates as $certificate}
+    <a n:href="CleaningTypeCertificate:create" class="col-xs-2 offset-xs-5 btn btn-primary">Zadat nový</a>
+    {if $allCertificates}
+        <div class="col-xs-8 offset-xs-2 card bg-faded">
+            <table class="table">
+                <thead>
                 <tr>
-                    <th>{$certificate->getId()}</th>
-                    <td><a n:href="CleaningTypeCertificate:detail $certificate->getId()">{$certificate->getName()}</a></td>
-                    <td>{$certificate->getCleaningType()->getName()}</td>
-                    <td>{$certificate->getUser()->getLastname()}</td>
-                    <td>{$certificate->getEnd()|date:'%d.%m.%Y'}</td>
+                    <th>#</th>
+                    <th>Název</th>
+                    <th>Typ čištění</th>
+                    <th>Uživatel</th>
+                    <th>Expirace</th>
                 </tr>
-            {/foreach}
-        </table>
-    </div>
+                </thead>
+                {foreach $allCertificates as $certificate}
+                    <tr>
+                        <th>{$certificate->getId()}</th>
+                        <td><a n:href="CleaningTypeCertificate:detail $certificate->getId()">{$certificate->getName()}</a></td>
+                        <td><a n:href="CleaningType:detail $certificate->getCleaningType()->getId()">{$certificate->getCleaningType()->getName()}</a></td>
+                        <td>{$certificate->getUser()->getName()}</td>
+                        <td>{$certificate->getEnd()|date:'%d.%m.%Y'}</td>
+                    </tr>
+                {/foreach}
+            </table>
+        </div>
+    {else}
+        <div class="alert alert-dismissible alert-info offset-xs-3 col-xs-6 no-records">
+            <strong>Nejsou k dispozici žádné záznamy</strong>
+        </div>
+    {/if}
 </div>

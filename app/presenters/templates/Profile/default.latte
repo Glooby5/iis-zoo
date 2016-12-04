@@ -5,27 +5,27 @@
         <table class="table">
             <tr>
                 <td>Jméno</td>
-                <td>{$user->getIdentity()->getFirstname()}</td>
+                <td>{$myUser->getFirstname()}</td>
             </tr>
             <tr>
                 <td>Příjmení</td>
-                <td>{$user->getIdentity()->getLastname()}</td>
+                <td>{$myUser->getLastname()}</td>
             </tr>
             <tr>
                 <td>Titul</td>
-                <td>{$user->getIdentity()->getTitle()}</td>
+                <td>{$myUser->getTitle()}</td>
             </tr>
             <tr>
                 <td>Rodné číslo</td>
-                <td>{$user->getIdentity()->getPersonalNumber()}</td>
+                <td>{$myUser->getPersonalNumber()}</td>
             </tr>
             <tr>
                 <td>Datum narození</td>
-                <td>{$user->getIdentity()->getBirthday()|date:'%d.%m.%Y'}</td>
+                <td>{$myUser->getBirthday()|date:'%d.%m.%Y'}</td>
             </tr>
             <tr>
                 <td>Role</td>
-                <td>{$user->getIdentity()->getRole()}</td>
+                <td>{$myUser->getRole()}</td>
             </tr>
         </table>
     </div>

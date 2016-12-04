@@ -1,28 +1,8 @@
 {block content}
 
-{var $userFeeding = array()}
-{var $i = 0}
-{foreach $feedings as $feeding}
-    {if $feeding->getKeeper()->getId() == $user->getId() && $today->diff($feeding->getEnd())->format("%R") == '+' }
-        {var $userFeeding[$i] = $feeding}
-        {var $i += 1}
-    {/if}
-{/foreach}
+<h1 n:block="title" class="text-xs-center" >Mé nadcházející činnosti</h1>
 
-{var $userCleaning = array()}
-{var $i = 0}
-{foreach $cleanings as $cleaning}
-    {foreach $cleaning->getCleaners() as $cleaner}
-        {if $cleaner->getId() == $user->getId() && $today->diff($cleaning->getEnd())->format("%R") == '+' }
-            {var $userCleaning[$i] = $cleaning}
-            {var $i += 1}
-        {/if}
-    {/foreach}
-{/foreach}
-
-<h1 n:block="title" class="text-xs-center" >Naplánované činnosti</h1>
-
-{if $userFeeding != null}
+{if count($feedings)}
 <div class="container">
     <h2 class="text-xs-center" >Přehled krmení</h2>
     <div class="col-xs-8 offset-xs-2 card bg-faded">
@@ -33,18 +13,16 @@
                     <th>#</th>
                     <th>Zvíře</th>
                     <th>Druh</th>
-                    <th>Ošetřovatel</th>
                     <th>Krmivo</th>
                     <th>Množství</th>
                     <th>Datum provedení</th>
                 </tr>
                 </thead>
-                {foreach $userFeeding as $feeding}
+                {foreach $feedings as $feeding}
                     <tr>
                         <th>{$feeding->getId()}</th>
                         <td><a n:href="Feeding:detail $feeding->getId()">{$feeding->getAnimal()->getName()}</a></td>
                         <td>{$feeding->getAnimal()->getSpecies()->getName()}</td>
-                        <td>{$feeding->getKeeper()->getLastname()}</td>
                         <td>{$feeding->getSpecies()}</td>
                         <td>{$feeding->getAmount()}</td>
                         <td>{$feeding->getStart()|date:'%d.%m.%Y %H:%M'}</td>
@@ -56,7 +34,7 @@
 </div>
 {/if}
 
-{if $userCleaning != null}
+{if count($cleanings)}
     <div class="container">
         <h2 class="text-xs-center" >Přehled čištění</h2>
         <div class="col-xs-8 offset-xs-2 card bg-faded">
@@ -70,7 +48,7 @@
                         <th>Datum provedení</th>
                     </tr>
                     </thead>
-                    {foreach $userCleaning as $cleaning}
+                    {foreach $cleanings as $cleaning}
                         <tr>
                             <th>{$cleaning->getId()}</th>
                             <td><a n:href="Cleaning:detail $cleaning->getId()">{$cleaning->getEnclosure()->getLabel()}</a></td>

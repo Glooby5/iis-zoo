@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Entities\Animal;
+use App\Entities\User;
 use App\Forms\AnimalDeathFormFactory;
 use App\Forms\AnimalFormFactory;
 use App\Repositories\AnimalRepository;
@@ -10,7 +11,7 @@ use Nette;
 use Nette\Http\IResponse;
 
 
-class AnimalPresenter extends BasePresenter
+class AnimalPresenter extends SecuredPresenter
 {
     /** @var AnimalFormFactory @inject */
     public $animalFormFactory;
@@ -24,12 +25,11 @@ class AnimalPresenter extends BasePresenter
     /** @var  Animal|NULL */
     private $editingAnimal;
 
-    public function startup()
+    public function actionCreate()
     {
-        parent::startup();
-
-        if ( ! $this->user->isLoggedIn()) {
-            $this->error('Nemáte oprávnění', IResponse::S403_FORBIDDEN);
+        if (!$this->user->isInRole(User::ADMIN)) {
+            $this->printForbiddenMessage();
+            $this->redirect('Animal:');
         }
     }
 
@@ -50,6 +50,11 @@ class AnimalPresenter extends BasePresenter
 
     public function actionEdit($id)
     {
+        if (!$this->user->isInRole(User::ADMIN)) {
+            $this->printForbiddenMessage();
+            $this->redirect('Animal:');
+        }
+
         $this->editingAnimal = $this->animalRepository->find($id);
 
         if ( ! $this->editingAnimal) {
@@ -59,6 +64,11 @@ class AnimalPresenter extends BasePresenter
 
     public function actionDelete($id)
     {
+        if (!$this->user->isInRole(User::ADMIN)) {
+            $this->printForbiddenMessage();
+            $this->redirect('Animal:');
+        }
+
         $species = $this->animalRepository->find($id);
 
         if ($species) {

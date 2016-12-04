@@ -49,7 +49,7 @@
             {/if}
         </table>
     </div>
-    <a n:href="Animal:edit $animal->getId()" class="col-xs-2 btn offset-xs-2 btn-primary">Upravit</a>
+    <a n:href="Animal:edit $animal->getId()" class="col-xs-2 btn offset-xs-2 btn-primary" n:if="$user->isInRole(\App\Entities\User::ADMIN)">Upravit</a>
     <a n:href="Animal:death $animal->getId()" n:if=" ! $animal->isDead()" class="col-xs-2 offset-xs-1 btn btn-primary">Umřít</a>
-    <a n:href="Animal:delete $animal->getId()" class="col-xs-2 offset-xs-1 btn btn-primary">Odstranit</a>
+    <a n:href="Animal:delete $animal->getId()" class="col-xs-2 offset-xs-1 btn btn-primary" n:if="$user->isInRole(\App\Entities\User::ADMIN)">Odstranit</a>
 </div>

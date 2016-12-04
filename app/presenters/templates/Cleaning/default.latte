@@ -1,27 +1,33 @@
 {block content}
 <div class="container">
     <h1 n:block="title" class="text-xs-center" >Přehled čištění</h1>
-    <a n:href="Cleaning:create" class="col-xs-2 offset-xs-8 btn btn-primary">Zadat nové</a>
-    <div class="col-xs-8 offset-xs-2 card bg-faded">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Výběh</th>
-                    <th>Typ čištění</th>
-                    <th>Datum provedení</th>
-                </tr>
-                </thead>
-                {foreach $cleanings as $cleaning}
+    <a n:href="Cleaning:create" class="col-xs-2 offset-xs-5 btn btn-primary">Zadat nové</a>
+    {if $cleanings}
+        <div class="col-xs-8 offset-xs-2 card bg-faded">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                     <tr>
-                        <th>{$cleaning->getId()}</th>
-                        <td><a n:href="Cleaning:detail $cleaning->getId()">{$cleaning->getEnclosure()->getLabel()}</a></td>
-                        <td>{$cleaning->getCleaningType()->getName()}</td>
-                        <td>{$cleaning->getStart()|date:'%d.%m.%Y %H:%M'}</td>
+                        <th>#</th>
+                        <th>Výběh</th>
+                        <th>Typ čištění</th>
+                        <th>Datum provedení</th>
                     </tr>
-                {/foreach}
-            </table>
+                    </thead>
+                    {foreach $cleanings as $cleaning}
+                        <tr>
+                            <th>{$cleaning->getId()}</th>
+                            <td><a n:href="Cleaning:detail $cleaning->getId()">{$cleaning->getEnclosure()->getLabel()}</a></td>
+                            <td>{$cleaning->getCleaningType()->getName()}</td>
+                            <td>{$cleaning->getStart()|date:'%d.%m.%Y %H:%M'}</td>
+                        </tr>
+                    {/foreach}
+                </table>
+            </div>
         </div>
-    </div>
+    {else}
+        <div class="alert alert-dismissible alert-info offset-xs-3 col-xs-6 no-records">
+            <strong>Nejsou k dispozici žádné záznamy</strong>
+        </div>
+    {/if}
 </div>

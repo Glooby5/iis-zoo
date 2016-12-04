@@ -1,25 +1,31 @@
 {block content}
 <div class="container">
     <h1 n:block="title" class="text-xs-center" >Přehled typů čištění</h1>
-    <a n:href="CleaningType:create" class="col-xs-2 offset-xs-8 btn btn-primary">Vytvořit nové</a>
-    <div class="col-xs-8 offset-xs-2 card bg-faded">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Název</th>
-                    <th>Pomůcky</th>
-                </tr>
-                </thead>
-                {foreach $cleaningTypes as $cleaningType}
+    <a n:href="CleaningType:create" class="col-xs-2 offset-xs-5 btn btn-primary" n:if="$user->isInRole(\App\Entities\User::ADMIN)">Vytvořit nové</a>
+    {if $cleaningTypes}
+        <div class="col-xs-8 offset-xs-2 card bg-faded">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                     <tr>
-                        <th>{$cleaningType->getId()}</th>
-                        <td><a n:href="CleaningType:detail $cleaningType->getId()">{$cleaningType->getName()}</a></td>
-                        <td>{$cleaningType->getTools()|truncate:100}</td>
+                        <th>#</th>
+                        <th>Název</th>
+                        <th>Pomůcky</th>
                     </tr>
-                {/foreach}
-            </table>
+                    </thead>
+                    {foreach $cleaningTypes as $cleaningType}
+                        <tr>
+                            <th>{$cleaningType->getId()}</th>
+                            <td><a n:href="CleaningType:detail $cleaningType->getId()">{$cleaningType->getName()}</a></td>
+                            <td>{$cleaningType->getTools()|truncate:100}</td>
+                        </tr>
+                    {/foreach}
+                </table>
+            </div>
         </div>
-    </div>
+    {else}
+        <div class="alert alert-dismissible alert-info offset-xs-3 col-xs-6 no-records">
+            <strong>Nejsou k dispozici žádné záznamy</strong>
+        </div>
+    {/if}
 </div>

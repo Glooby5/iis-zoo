@@ -51,6 +51,7 @@ class Feeding
     /**
      * @var Animal
      * @ORM\ManyToOne(targetEntity="Animal")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $animal;
 

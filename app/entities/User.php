@@ -216,8 +216,17 @@ class User implements IIdentity
         $this->cleanings = $cleanings;
     }
 
-    function getRoles()
+    public function getRoles()
     {
+        if ($this->role == self::ADMIN) {
+            return [$this->role, self::ATTENDANT];
+        }
+
         return [$this->getRole()];
+    }
+
+    public function getName()
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 }

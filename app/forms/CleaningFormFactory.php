@@ -122,14 +122,14 @@ class CleaningFormFactory extends Nette\Application\UI\Control
             $certificates = $this->cleaningTypeCertificateRepository->canUserDoCleaningType($cleaner, $values->cleaning_type_id, new DateTime($values->start));
 
             if (!$certificates) {
-                $form->addError("Ošetřovatel nemá certifikát umožňující tento typ čištění");
+                $form->addError("Ošetřovatel nemá platný certifikát umožňující tento typ čištění");
                 return false;
             }
 
             $certificates = $this->enclosureTypeCertificateRepository->canUserEnclosureType($cleaner, $enclosure->getEnclosureType()->getId(), new DateTime($values->start));
 
             if (!$certificates) {
-                $form->addError("Ošetřovatel nemá certifikát umožňující čistit zadaný typ výběhu");
+                $form->addError("Ošetřovatel nemá platný certifikát umožňující čistit zadaný typ výběhu");
                 return false;
             }
 

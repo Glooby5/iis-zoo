@@ -52,7 +52,7 @@ class SignUpFormFactory
 			->addRule($form::MIN_LENGTH, NULL, self::PASSWORD_MIN_LENGTH);
 
         $form->addPassword('passwordCheck', 'Heslo znovu:')
-            ->setRequired()
+            ->setRequired('Zadejter heslo znovu pro potvrzení')
             ->addRule($form::EQUAL, 'Hesla se neshodují', $form['password']);
 
 		$form->addSubmit('send', 'Zaregistrovat se');

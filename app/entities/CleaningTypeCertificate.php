@@ -12,6 +12,7 @@ class CleaningTypeCertificate extends Certificate
     /**
      * @var CleaningType
      * @ORM\ManyToOne(targetEntity="CleaningType")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $cleaningType;
 

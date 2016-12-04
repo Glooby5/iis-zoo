@@ -3,12 +3,13 @@
 namespace App\Presenters;
 
 use App\Entities\Cleaning;
+use App\Entities\User;
 use App\Forms\CleaningFormFactory;
 use App\Repositories\CleaningRepository;
 use Nette;
 use Nette\Http\IResponse;
 
-class CleaningPresenter extends BasePresenter
+class CleaningPresenter extends SecuredPresenter
 {
     /** @var CleaningFormFactory @inject */
     public $cleaningFormFactory;
@@ -18,15 +19,6 @@ class CleaningPresenter extends BasePresenter
 
     /** @var Cleaning|NULL */
     private $editingCleaning;
-
-    public function startup()
-    {
-        parent::startup();
-
-        if ( ! $this->user->isLoggedIn()) {
-            $this->error('Nemáte oprávnění', IResponse::S403_FORBIDDEN);
-        }
-    }
 
     public function renderCreate()
     {

@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Entities\Certificate;
 use App\Entities\Species;
+use App\Entities\User;
 use App\Forms\SpeciesCertificateFormFactory;
 use App\Repositories\SpeciesCertificateRepository;
 use App\Repositories\SpeciesRepository;
@@ -12,7 +13,7 @@ use Nette;
 use Nette\Http\IResponse;
 
 
-class SpeciesCertificatePresenter extends BasePresenter
+class SpeciesCertificatePresenter extends SecuredPresenter
 {
     /** @var SpeciesCertificateFormFactory @inject */
     public $speciesCertificateFormFactory;
@@ -23,12 +24,11 @@ class SpeciesCertificatePresenter extends BasePresenter
     /** @var Certificate|NULL */
     private $editingCertificate;
 
-    public function startup()
+    public function actionCreate()
     {
-        parent::startup();
-
-        if ( ! $this->user->isLoggedIn()) {
-            $this->error('Nemáte oprávnění', IResponse::S403_FORBIDDEN);
+        if (!$this->user->isInRole(User::ADMIN)) {
+            $this->printForbiddenMessage();
+            $this->redirect('SpeciesCertificate:');
         }
     }
 
@@ -49,6 +49,11 @@ class SpeciesCertificatePresenter extends BasePresenter
 
     public function actionEdit($id)
     {
+        if (!$this->user->isInRole(User::ADMIN)) {
+            $this->printForbiddenMessage();
+            $this->redirect('SpeciesCertificate:');
+        }
+
         $this->editingCertificate = $this->speciesCertificateRepository->find($id);
 
         if ( ! $this->editingCertificate) {
@@ -58,6 +63,11 @@ class SpeciesCertificatePresenter extends BasePresenter
 
     public function actionDelete($id)
     {
+        if (!$this->user->isInRole(User::ADMIN)) {
+            $this->printForbiddenMessage();
+            $this->redirect('SpeciesCertificate:');
+        }
+
         $certificate = $this->speciesCertificateRepository->find($id);
 
         if ($certificate) {

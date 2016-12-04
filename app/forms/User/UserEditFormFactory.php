@@ -105,7 +105,10 @@ class UserEditFormFactory extends Nette\Application\UI\Control
         $user->setPersonalNumber($values->personalNumber);
         $user->setBirthday(new Nette\Utils\DateTime($values->birthday));
         $user->setTitle($values->title);
-        $user->setRole($values->role);
+
+        if (isset($values->role)) {
+            $user->setRole($values->role);
+        }
 
         $this->userRepository->getEntityManager()->persist($user);
         $this->userRepository->getEntityManager()->flush();

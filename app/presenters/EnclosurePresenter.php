@@ -3,13 +3,14 @@
 namespace App\Presenters;
 
 use App\Entities\Enclosure;
+use App\Entities\User;
 use App\Forms\EnclosureFormFactory;
 use App\Repositories\EnclosureRepository;
 use Nette;
 use Nette\Http\IResponse;
 
 
-class EnclosurePresenter extends BasePresenter
+class EnclosurePresenter extends SecuredPresenter
 {
     /** @var EnclosureFormFactory @inject */
     public $speciesFormFactory;
@@ -20,12 +21,11 @@ class EnclosurePresenter extends BasePresenter
     /** @var  Enclosure|NULL */
     private $editingEnclosure;
 
-    public function startup()
+    public function actionCreate()
     {
-        parent::startup();
-
-        if ( ! $this->user->isLoggedIn()) {
-            $this->error('Nemáte oprávnění', IResponse::S403_FORBIDDEN);
+        if (!$this->user->isInRole(User::ADMIN)) {
+            $this->printForbiddenMessage();
+            $this->redirect('Enclosure:');
         }
     }
 
@@ -46,6 +46,11 @@ class EnclosurePresenter extends BasePresenter
 
     public function actionEdit($id)
     {
+        if (!$this->user->isInRole(User::ADMIN)) {
+            $this->printForbiddenMessage();
+            $this->redirect('Enclosure:');
+        }
+
         $this->editingEnclosure = $this->enclosureRepository->find($id);
 
         if ( ! $this->editingEnclosure) {
@@ -55,6 +60,11 @@ class EnclosurePresenter extends BasePresenter
 
     public function actionDelete($id)
     {
+        if (!$this->user->isInRole(User::ADMIN)) {
+            $this->printForbiddenMessage();
+            $this->redirect('Enclosure:');
+        }
+
         $species = $this->enclosureRepository->find($id);
 
         if ($species) {

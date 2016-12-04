@@ -90,6 +90,21 @@ class CleaningRepository
         return $this->repository->findPairs([], 'name');
     }
 
+    public function findUserCleanings($userId)
+    {
+        $queryBuilder = $this->repository->createQueryBuilder()
+            ->select('c')
+            ->from(Cleaning::class, 'c')
+            ->innerJoin('c.cleaners', 'u')
+            ->where('u.id = :user')
+            ->setParameter(':user', $userId)
+            ->andwhere('c.start >= :actual')
+            ->setParameter(':actual', new DateTime())
+            ->andWhere('c.done = FALSE');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     public function saveFormData($values)
     {
         $cleaning = NULL;

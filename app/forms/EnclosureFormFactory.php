@@ -48,6 +48,7 @@ class EnclosureFormFactory extends Nette\Application\UI\Control
         $form->addSelect('enclosureType', 'Typ výběhu')
             ->setPrompt('- vyberte -')
             ->setItems($this->enclosureTypeRepository->findPairs())
+            ->addRule(Form::FILLED, "`%label` je povinný.")
         ;
         $form->addText('label', 'Název')
             ->addRule(Form::FILLED, "`%label` je povinný.")

@@ -35,6 +35,7 @@ class Enclosure
     /**
      * @var EnclosureType
      * @ORM\ManyToOne(targetEntity="EnclosureType", inversedBy="enclosures")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $enclosureType;
 

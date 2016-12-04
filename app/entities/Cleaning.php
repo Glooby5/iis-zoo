@@ -34,12 +34,14 @@ class Cleaning
     /**
      * @var Enclosure
      * @ORM\ManyToOne(targetEntity="Enclosure")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $enclosure;
 
     /**
      * @var CleaningType
      * @ORM\ManyToOne(targetEntity="CleaningType")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $cleaningType;
 
