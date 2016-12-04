@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Entities\Certificate;
 use App\Entities\Species;
+use App\Entities\User;
 use App\Forms\SpeciesCertificateFormFactory;
 use App\Repositories\SpeciesCertificateRepository;
 use App\Repositories\SpeciesRepository;
@@ -25,7 +26,7 @@ class SpeciesCertificatePresenter extends SecuredPresenter
 
     public function actionCreate()
     {
-        if ($this->user->isInRole(User::ATTENDANT)) {
+        if (!$this->user->isInRole(User::ADMIN)) {
             $this->printForbiddenMessage();
             $this->redirect('SpeciesCertificate:');
         }
@@ -48,7 +49,7 @@ class SpeciesCertificatePresenter extends SecuredPresenter
 
     public function actionEdit($id)
     {
-        if ($this->user->isInRole(User::ATTENDANT)) {
+        if (!$this->user->isInRole(User::ADMIN)) {
             $this->printForbiddenMessage();
             $this->redirect('SpeciesCertificate:');
         }
@@ -62,7 +63,7 @@ class SpeciesCertificatePresenter extends SecuredPresenter
 
     public function actionDelete($id)
     {
-        if ($this->user->isInRole(User::ATTENDANT)) {
+        if (!$this->user->isInRole(User::ADMIN)) {
             $this->printForbiddenMessage();
             $this->redirect('SpeciesCertificate:');
         }

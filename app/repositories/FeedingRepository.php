@@ -69,6 +69,19 @@ class FeedingRepository
         return $this->repository->findAll();
     }
 
+    public function findUserFeedings($userId)
+    {
+        $queryBuilder = $this->repository->createQueryBuilder()
+            ->select('f')
+            ->from(Feeding::class, 'f')
+            ->where('f.keeper = :user')
+            ->setParameter(':user', $userId)
+            ->andwhere('f.start >= :actual')
+            ->setParameter(':actual', new DateTime());
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     /**
      * @param $values
      * @return Feeding

@@ -95,7 +95,7 @@ class FeedingFormFactory extends Nette\Application\UI\Control
         $certificates = $this->speciesCertificateRepository->canUserFeedSpecies($values->keeper_id, $animal->getSpecies()->getId(), new DateTime($values->start));
 
         if (!$certificates) {
-            $form->addError("Ošetřovatel nemá certifikát umožňující krmení tohoto druhu");
+            $form->addError("Ošetřovatel nemá platný certifikát umožňující krmení tohoto druhu");
             return false;
         }
 

@@ -18,7 +18,7 @@
                     <th>{$certificate->getId()}</th>
                     <td><a n:href="EnclosureTypeCertificate:detail $certificate->getId()">{$certificate->getName()}</a></td>
                     <td>{$certificate->getEnclosureType()->getName()}</td>
-                    <td>{$certificate->getUser()->getLastname()}</td>
+                    <td>{$certificate->getUser()->getName()}</td>
                     <td>{$certificate->getEnd()|date:'%d.%m.%Y'}</td>
                 </tr>
             {/foreach}

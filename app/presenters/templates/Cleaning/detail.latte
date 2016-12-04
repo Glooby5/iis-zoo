@@ -37,9 +37,9 @@
                     <td>Ošetřovatel</td>
                     <td>
                         {if $user->isInRole('admin')}
-                            <a n:href="User:detail $cleaner->getId()">{$cleaner->getLastname()}</a>
+                            <a n:href="User:detail $cleaner->getId()">{$cleaner->getName()}</a>
                         {else}
-                            {$cleaner->getLastname()}
+                            {$cleaner->getName()}
                         {/if}
                     </td>
                 </tr>

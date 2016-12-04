@@ -14,9 +14,9 @@
                 <td>Ošetřovatel</td>
                 <td>
                     {if $user->isInRole('admin')}
-                        <a n:href="User:detail $feeding->getKeeper()->getId()">{$feeding->getKeeper()->getLastname()}</a>
+                        <a n:href="User:detail $feeding->getKeeper()->getId()">{$feeding->getKeeper()->getName()}</a>
                     {else}
-                        {$feeding->getKeeper()->getLastname()}
+                        {$feeding->getKeeper()->getName()}
                     {/if}
                 </td>
             </tr>

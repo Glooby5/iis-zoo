@@ -27,8 +27,8 @@ class HomepagePresenter extends BasePresenter
 	public function renderDefault()
 	{
 	    $this->template->today = new DateTime();
-        $this->template->feedings = $this->feedingRepository->findAll();
-        $this->template->cleanings = $this->cleaningRepository->findAll();
+        $this->template->feedings = $this->feedingRepository->findUserFeedings($this->user->getId());
+        $this->template->cleanings = $this->cleaningRepository->findUserCleanings($this->user->getId());
 	}
 
 }

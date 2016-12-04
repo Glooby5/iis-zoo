@@ -16,7 +16,7 @@
                 <tr>
                     <td>{$myUser->getId()}</td>
                     <td><a n:href="User:detail $myUser->getId()" n:if="$user->isInRole(\App\Entities\User::ADMIN)">{$myUser->getFirstname()}</a></td>
-                    <td>{$myUser->getLastname()}</td>
+                    <td>{$myUser->getName()}</td>
                     <td>{$myUser->getRole()}</td>
                 </tr>
                 {/foreach}

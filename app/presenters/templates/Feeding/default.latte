@@ -21,7 +21,7 @@
                         <th>{$feeding->getId()}</th>
                         <td><a n:href="Feeding:detail $feeding->getId()">{$feeding->getAnimal()->getName()}</a></td>
                         <td>{$feeding->getAnimal()->getSpecies()->getName()}</td>
-                        <td>{$feeding->getKeeper()->getLastname()}</td>
+                        <td>{$feeding->getKeeper()->getName()}</td>
                         <td>{$feeding->getSpecies()}</td>
                         <td>{$feeding->getAmount()}</td>
                         <td>{$feeding->getStart()|date:'%d.%m.%Y %H:%M'}</td>

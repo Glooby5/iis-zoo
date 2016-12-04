@@ -28,7 +28,7 @@ class CleaningTypeCertificatePresenter extends SecuredPresenter
 
     public function actionCreate()
     {
-        if ($this->user->isInRole(User::ATTENDANT)) {
+        if (!$this->user->isInRole(User::ADMIN)) {
             $this->printForbiddenMessage();
             $this->redirect('CleaningTypeCertificate:');
         }
@@ -51,7 +51,7 @@ class CleaningTypeCertificatePresenter extends SecuredPresenter
 
     public function actionEdit($id)
     {
-        if ($this->user->isInRole(User::ATTENDANT)) {
+        if (!$this->user->isInRole(User::ADMIN)) {
             $this->printForbiddenMessage();
             $this->redirect('CleaningTypeCertificate:');
         }
@@ -65,7 +65,7 @@ class CleaningTypeCertificatePresenter extends SecuredPresenter
 
     public function actionDelete($id)
     {
-        if ($this->user->isInRole(User::ATTENDANT)) {
+        if (!$this->user->isInRole(User::ADMIN)) {
             $this->printForbiddenMessage();
             $this->redirect('CleaningTypeCertificate:');
         }

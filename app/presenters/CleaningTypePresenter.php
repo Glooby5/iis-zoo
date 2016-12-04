@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Entities\CleaningType;
+use App\Entities\User;
 use App\Forms\CleaningTypeFormFactory;
 use App\Repositories\CleaningTypeRepository;
 use Nette;
@@ -22,7 +23,7 @@ class CleaningTypePresenter extends SecuredPresenter
 
     public function actionCreate()
     {
-        if ($this->user->isInRole(User::ATTENDANT)) {
+        if (!$this->user->isInRole(User::ADMIN)) {
             $this->printForbiddenMessage();
             $this->redirect('CleaningType:');
         }
@@ -45,7 +46,7 @@ class CleaningTypePresenter extends SecuredPresenter
 
     public function actionEdit($id)
     {
-        if ($this->user->isInRole(User::ATTENDANT)) {
+        if (!$this->user->isInRole(User::ADMIN)) {
             $this->printForbiddenMessage();
             $this->redirect('CleaningType:');
         }
@@ -59,7 +60,7 @@ class CleaningTypePresenter extends SecuredPresenter
 
     public function actionDelete($id)
     {
-        if ($this->user->isInRole(User::ATTENDANT)) {
+        if (!$this->user->isInRole(User::ADMIN)) {
             $this->printForbiddenMessage();
             $this->redirect('CleaningType:');
         }

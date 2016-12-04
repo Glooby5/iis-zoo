@@ -20,14 +20,6 @@ class CleaningPresenter extends SecuredPresenter
     /** @var Cleaning|NULL */
     private $editingCleaning;
 
-    public function actionCreate()
-    {
-        if ($this->user->isInRole(User::ATTENDANT)) {
-            $this->printForbiddenMessage();
-            $this->redirect('Cleaning:');
-        }
-    }
-
     public function renderCreate()
     {
         $this['cleaningForm']['id']->setDisabled();
@@ -45,11 +37,6 @@ class CleaningPresenter extends SecuredPresenter
 
     public function actionEdit($id)
     {
-        if ($this->user->isInRole(User::ATTENDANT)) {
-            $this->printForbiddenMessage();
-            $this->redirect('Cleaning:');
-        }
-
         $this->editingCleaning = $this->cleaningRepository->find($id);
 
         if ( ! $this->editingCleaning) {
@@ -59,11 +46,6 @@ class CleaningPresenter extends SecuredPresenter
 
     public function actionDelete($id)
     {
-        if ($this->user->isInRole(User::ATTENDANT)) {
-            $this->printForbiddenMessage();
-            $this->redirect('Cleaning:');
-        }
-
         $species = $this->cleaningRepository->find($id);
 
         if ($species) {
